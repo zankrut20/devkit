@@ -1,18 +1,27 @@
 Package: devkit
+Type: Package
 Title: R Development Toolkit
-Version: 0.1.0
-Author: zankrut
-Maintainer: zankrut <zankrut@example.com>
+Version: 0.0.1
+Authors@R: 
+  c(person(given = "Zankrut",
+           family = "Goyani",
+           role = c("aut", "cre", "cph"),
+           email = "zankrut20@gmail.com"))
+Maintainer: Zankrut Goyani <zankrut20@gmail.com>
 Description: A collection of practical R scripts for package management, 
     development workflows, debugging, data processing, and system utilities.
-License: MIT
 Encoding: UTF-8
+License: MIT + file LICENSE
 LazyData: true
-Imports: 
-    styler
+Language: en-US
+Depends: 
+    R (>= 3.5.0)
+Imports:
+    tools
 Suggests: 
     testthat, 
     devtools, 
     roxygen2, 
     usethis, 
     knitr
+Config/roxygen2/version: 8.0.0
