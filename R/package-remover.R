@@ -1,9 +1,7 @@
-library("tools")
-
 #' Interactive Package Remover
 #'
 #' @description
-#' Safely removes a specified R package and its unused dependencies from the 
+#' Safely removes a specified R package and its unused dependencies from the
 #' system, ensuring that other installed packages do not lose required dependencies.
 #'
 #' @details
@@ -25,19 +23,22 @@ library("tools")
 #' @importFrom tools package_dependencies
 #' @export
 
-remove<- function(pkg, recursive = FALSE){
-  d<- package_dependencies(,installed.packages(), recursive = recursive)
-  depends<- if(!is.null(d[[pkg]])) d[[pkg]] else character()
-  required<- unique(unlist(d[!names(d) %in% c(pkg,depends)]))
-  toRemove<- depends[!depends %in% required]
-  if(length(toRemove)){
-    toRmove <- select.list(c(pkg,sort(toRemove)), multiple = TRUE,
-                           title = "Select packages to remove")
-    remove.packages(toRmove)
-    return(toRmove)
-  } else {
-    invisible(character())
-  }
-}
+remove_package <- function(pkg, recursive = FALSE) {
+  d <- package_dependencies(, installed.packages(), recursive = recursive)
+  depends <- if (!is.null(d[[pkg]])) d[[pkg]] else character()
+  required <- unique(unlist(d[!names(d) %in% c(pkg, depends)]))
+  orphans <- depends[!depends %in% required]
 
-#remove("agricolae")
+  # Always offer the target package itself for removal, plus any orphans
+  candidates <- c(pkg, sort(orphans))
+
+  to_remove <- select.list(candidates, multiple = TRUE,
+                           title = "Select packages to remove")
+
+  if (length(to_remove) > 0) {
+    remove.packages(to_remove)
+    return(to_remove)
+  }
+
+  invisible(character())
+}
