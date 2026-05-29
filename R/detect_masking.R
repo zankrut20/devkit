@@ -1,4 +1,4 @@
-utils::globalVariables(c("func", "out_name"))
+
 
 #' Function Masking Detective
 #'
