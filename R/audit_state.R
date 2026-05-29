@@ -35,7 +35,7 @@ audit_script <- function() {
   target_script <- select.list(scripts, title = "Select a script to audit:")
   if (target_script == "") return(message("Audit cancelled."))
   
-  message(sprintf("\n--- Taking Pre-Execution Snapshot ---", target_script))
+  message(sprintf("\n--- Taking Pre-Execution Snapshot for '%s' ---", target_script))
   
   # 2. Capture the "Before" State
   pre_wd <- getwd()

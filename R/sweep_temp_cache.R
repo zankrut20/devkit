@@ -121,11 +121,13 @@ sweep_temp_cache <- function() {
   for (choice in to_flush) {
     files_to_delete <- action_map[[choice]]
     
+    # Calculate freed space BEFORE deletion (files won't exist after unlink)
+    freed_mb <- sum(file.info(files_to_delete)$size, na.rm = TRUE) / (1024^2)
+    total_freed <- total_freed + freed_mb
+    
     # Force deletion of the selected files
     unlink(files_to_delete, force = TRUE)
     
-    # Calculate actual freed space based on original file sizes
-    total_freed <- total_freed + sum(file.info(files_to_delete)$size, na.rm = TRUE) / (1024^2)
     message(sprintf("-> Flushed: %s", choice))
   }
   

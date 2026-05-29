@@ -76,8 +76,8 @@ dispatch_checkpoints <- function(items, target_func, checkpoint_file = "batch_ch
   for (i in start_index:total_items) {
     
     # Execute with error trapping
-    tryCatch({
-      results[[i]] <- target_func(items[[i]])
+    results[[i]] <- tryCatch({
+      target_func(items[[i]])
     }, error = function(e) {
       # On crash, force a final save of the exact failure point
       crash_state <- list(current_index = i, results = results)

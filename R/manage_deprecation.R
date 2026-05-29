@@ -60,7 +60,7 @@ manage_deprecation <- function() {
     message(sprintf("-> Created %s", dep_file))
   }
   
-  cat(paste(wrapper_code, collapse = "\n"), file = dep_file, append = TRUE)
+  cat(paste(wrapper_code, collapse = "\n"), "\n", file = dep_file, append = TRUE)
   message(sprintf("-> Scaffolded deprecated wrapper for `%s()` in %s", old_func, dep_file))
   
   # 4. Internal Refactoring (Tests & Vignettes)
@@ -75,7 +75,7 @@ manage_deprecation <- function() {
     
     for (d in target_dirs) {
       if (dir.exists(d)) {
-        files_to_scan <- c(files_to_scan, list.files(d, pattern = "\\.[R|Rmd|rmd]$", full.names = TRUE, recursive = TRUE))
+        files_to_scan <- c(files_to_scan, list.files(d, pattern = "\\.(R|Rmd)$", full.names = TRUE, recursive = TRUE, ignore.case = TRUE))
       }
     }
     

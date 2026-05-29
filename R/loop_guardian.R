@@ -39,11 +39,11 @@ loop_guardian <- function(items, target_func, limit_mb = 4000, save_path = "emer
   
   for (i in seq_len(total_items)) {
     # 1. Execute the target function on the current item
-    tryCatch({
-      results[[i]] <- target_func(items[[i]])
+    results[[i]] <- tryCatch({
+      target_func(items[[i]])
     }, error = function(e) {
       message(sprintf("\n[!] Execution error at iteration %d: %s", i, e$message))
-      results[[i]] <- NA 
+      NA
     })
     
     # 2. Memory Check (Run every 50 iterations to avoid slowing down the loop)
