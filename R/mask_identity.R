@@ -1,4 +1,4 @@
-utils::globalVariables(c("func", "out_name"))
+
 
 #' Interactive Identity Masker
 #'
@@ -31,8 +31,7 @@ mask_identity <- function() {
   message("Initializing Identity Masker...")
   
   # 1. Select the Dataframe
-  env_objs <- ls(envir = .GlobalEnv)
-  df_names <- env_objs[sapply(env_objs, function(x) is.data.frame(get(x, envir = .GlobalEnv)))]
+  df_names <- .list_global_dataframes()
   
   if (length(df_names) == 0) return(message("No dataframes found in the global environment."))
   

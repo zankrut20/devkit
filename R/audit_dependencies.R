@@ -86,7 +86,7 @@ audit_dependencies <- function() {
   
   scan_directory <- function(dir_name) {
     if (!dir.exists(dir_name)) return(character())
-    files <- list.files(dir_name, pattern = "\\.[R|Rmd|rmd]$", full.names = TRUE, recursive = TRUE)
+    files <- list.files(dir_name, pattern = "\\.(R|Rmd)$", full.names = TRUE, recursive = TRUE, ignore.case = TRUE)
     
     found_pkgs <- character()
     for (f in files) {
@@ -112,7 +112,7 @@ audit_dependencies <- function() {
   used_in_vigs <- scan_directory("vignettes")
   
   all_used <- unique(c(used_in_R, used_in_tests, used_in_vigs))
-  base_pkgs <- c("base", "stats", "utils", "methods", "graphics", "grDevices", "datasets", "tools")
+  base_pkgs <- .base_pkgs
   all_used <- setdiff(all_used, base_pkgs)
   used_in_R <- setdiff(used_in_R, base_pkgs)
   

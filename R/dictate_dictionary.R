@@ -27,9 +27,7 @@
 
 dictate_dictionary <- function() {
   # Find all data frames in the global environment
-  env_objs <- ls(envir = .GlobalEnv)
-  is_df <- sapply(env_objs, function(x) is.data.frame(get(x, envir = .GlobalEnv)))
-  df_names <- env_objs[is_df]
+  df_names <- .list_global_dataframes()
   
   if (length(df_names) == 0) {
     return(message("No data frames found in the global environment."))

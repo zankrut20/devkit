@@ -31,12 +31,9 @@ export_snapshot <- function() {
   include_versions <- tolower(trimws(strict_version)) == "y"
 
   # Extract non-base attached packages
-  attached <- search()
-  pkg_names <- gsub("package:", "", attached[grepl("^package:", attached)])
+  pkg_names <- .attached_packages()
   
-  base_pkgs <- c("base", "compiler", "datasets", "graphics", "grDevices", 
-                 "grid", "methods", "parallel", "splines", "stats", "stats4", 
-                 "tcltk", "tools", "utils")
+  base_pkgs <- .base_pkgs
   
   target_pkgs <- setdiff(pkg_names, base_pkgs)
   

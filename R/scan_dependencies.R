@@ -34,8 +34,8 @@ scan_dependencies <- function() {
   
   # Note: A robust implementation would use a parser like NCmisc::list.functions.in.file()
   # For this raw script, we simulate finding attached but unused packages.
-  attached_pkgs <- gsub("package:", "", search()[grepl("^package:", search())])
-  base_pkgs <- c("base", "methods", "datasets", "utils", "grDevices", "graphics", "stats")
+  attached_pkgs <- .attached_packages()
+  base_pkgs <- .base_pkgs
   external_pkgs <- setdiff(attached_pkgs, base_pkgs)
   
   if (length(external_pkgs) == 0) return(message("No external packages attached to scan."))

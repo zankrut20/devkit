@@ -34,14 +34,11 @@ network_diplomat <- function(targets, target_func, max_retries = 3) {
   message(sprintf("Initializing Network Diplomat for %d targets...", total_targets))
   
   # 1. Interactively Determine the Rate Limit
-  rate_prompt <- "Enter the server's rate limit (Requests per MINUTE). \n(If unsure, 30 is a safe default for most public APIs): "
-  rate_input <- readline(prompt = rate_prompt)
-  
-  req_per_min <- suppressWarnings(as.numeric(rate_input))
-  if (is.na(req_per_min) || req_per_min <= 0) {
-    message("Invalid input. Defaulting to a highly polite 30 requests per minute.")
-    req_per_min <- 30
-  }
+  req_per_min <- .read_numeric(
+    prompt = "Enter the server's rate limit (Requests per MINUTE). \n(If unsure, 30 is a safe default for most public APIs): ",
+    default = 30,
+    default_msg = "Invalid input. Defaulting to a highly polite 30 requests per minute."
+  )
   
   # Calculate exact sleep time per request
   base_sleep <- 60 / req_per_min
@@ -58,9 +55,9 @@ network_diplomat <- function(targets, target_func, max_retries = 3) {
     # 3. The Retry & Backoff Manager
     while (!success && attempt <= max_retries) {
       
-      tryCatch({
+      result <- tryCatch({
         # Attempt the network request
-        results[[i]] <- target_func(target)
+        val <- target_func(target)
         success <- TRUE
         
         # Only sleep if it's not the very last item
@@ -68,6 +65,7 @@ network_diplomat <- function(targets, target_func, max_retries = 3) {
           Sys.sleep(base_sleep)
         }
         
+        val
       }, error = function(e) {
         # Catch timeouts, 404s, 429s, or disconnected networks
         err_msg <- trimws(e$message)
@@ -91,12 +89,17 @@ network_diplomat <- function(targets, target_func, max_retries = 3) {
           
         } else {
           message("-> Max retries exhausted. Diplomat abandoning this target.")
-          results[[i]] <- NA # Log as failed and move on so the script doesn't die
         }
+        NA
       })
+      
+      if (success) results[[i]] <- result
       
       attempt <- attempt + 1
     }
+    
+    # If all retries were exhausted, mark as failed
+    if (!success) results[[i]] <- NA
     
     # Optional: Print a subtle progress tracker every 10% 
     if (i %% max(1, floor(total_targets / 10)) == 0) {

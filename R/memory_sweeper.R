@@ -25,13 +25,11 @@
 
 sweep_memory <- function() {
   # Dynamically ask for the threshold during execution
-  thresh_input <- readline(prompt = "Enter minimum object size to flag (in MB, e.g., 50): ")
-  threshold <- suppressWarnings(as.numeric(thresh_input))
-  
-  if (is.na(threshold)) {
-    message("Invalid input. Defaulting to 50 MB.")
-    threshold <- 50
-  }
+  threshold <- .read_numeric(
+    prompt = "Enter minimum object size to flag (in MB, e.g., 50): ",
+    default = 50,
+    default_msg = "Invalid input. Defaulting to 50 MB."
+  )
 
   env_objs <- ls(envir = .GlobalEnv)
   if (length(env_objs) == 0) {
