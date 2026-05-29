@@ -1,9 +1,29 @@
+utils::globalVariables(c("func", "out_name"))
+
 #' Function Masking Detective
-#' Scans for namespace conflicts and interactively resolves them.
-#' Automatically adapts its output based on whether you are developing 
-#' a package or writing a standalone analysis script.
-#' 
-#' @return Invisible TRUE if successful.
+#'
+#' @description
+#' Scans for namespace conflicts among attached packages and interactively 
+#' helps the user resolve them. The function adapts its recommendations 
+#' based on whether it detects a package development environment or a 
+#' standalone analysis script.
+#'
+#' @details
+#' The function performs the following steps:
+#' \enumerate{
+#'   \item Identifies all functions that are masked by multiple attached packages.
+#'   \item Interactively prompts the user to select the preferred package for each conflicting function.
+#'   \item If a `DESCRIPTION` file is present (Package Development context), it suggests 
+#'       updating the `Imports` field and adding `@importFrom` roxygen2 tags.
+#'   \item If no `DESCRIPTION` file is present (Standalone context), it generates a 
+#'       code snippet to explicitly assign the preferred functions in the global environment 
+#'       and offers to apply these assignments immediately.
+#' }
+#'
+#' @return 
+#' Invisibly returns `TRUE` if the process completes successfully.
+#'
+#' @importFrom utils select.list
 #' @export
 
 detect_masking <- function() {
@@ -87,7 +107,7 @@ detect_masking <- function() {
     if (apply_now == "Yes") {
       for (func in names(resolutions)) {
         # Assign the preferred function directly to the Global Environment
-        assign(func, getExportedValue(resolutions[[func]], func), envir = .GlobalEnv)
+        do.call("assign", list(func, get(func, envir = asNamespace(resolutions[[func]])), envir = .GlobalEnv))
       }
       message("Success: Priorities applied to the Global Environment.")
     }

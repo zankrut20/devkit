@@ -1,7 +1,30 @@
+utils::globalVariables(c("func", "out_name"))
+
 #' Interactive Identity Masker
-#' Safely anonymizes PII in a dataset by interactively prompting the user 
-#' to keep, drop, or scramble each column.
 #'
+#' @description
+#' Safely anonymizes Personally Identifiable Information (PII) in a dataset 
+#' by interactively prompting the user to keep, drop, or scramble each column.
+#'
+#' @details
+#' The function provides a guided workflow for data anonymization:
+#' \enumerate{
+#'   \item Scans the global environment for available data frames and prompts the user to select one.
+#'   \item Iterates through every column in the selected data frame, displaying its name and type.
+#'   \item For each column, the user chooses one of three actions:
+#'       \itemize{
+#'         \item \strong{Keep}: Leaves the column unchanged.
+#'         \item \strong{Scramble}: For numeric data, it shuffles the values to preserve the distribution while breaking the link to individuals. For text/factors, it replaces values with sequential placeholders (e.g., "Masked_0001").
+#'         \item \strong{Drop}: Removes the column entirely from the dataset.
+#'       }
+#'   \item Saves the resulting anonymized data frame back to the global environment with a `_masked` suffix.
+#'   \item Optionally generates a `dput()` output of the first 20 rows for easy, safe sharing.
+#' }
+#'
+#' @return 
+#' Invisibly returns the anonymized data frame.
+#'
+#' @importFrom utils select.list head
 #' @export
 
 mask_identity <- function() {
@@ -62,7 +85,7 @@ mask_identity <- function() {
   
   # 3. Output Resolution
   out_name <- paste0(target_df_name, "_masked")
-  assign(out_name, masked_df, envir = .GlobalEnv)
+  do.call("assign", list(out_name, masked_df, envir = .GlobalEnv))
   
   message(sprintf("\nSuccess! Anonymized dataset saved to environment as '%s'.", out_name))
   

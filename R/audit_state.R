@@ -1,7 +1,28 @@
 #' Silent State Auditor
-#' Takes a snapshot of global options, graphical parameters, and working directory,
-#' sources a script, and interactively helps you revert hijacked settings.
 #'
+#' @description
+#' Takes a snapshot of global options, graphical parameters, and the working directory, 
+#' sources a specified R script, and then interactively helps the user identify 
+#' and revert any "hijacked" settings changed by the script.
+#'
+#' @details
+#' The function operates as follows:
+#' \enumerate{
+#'   \item Captures the current state of `getwd()`, `options()`, and `par()`.
+#'   \item Prompts the user to select an R script from the current directory to execute.
+#'   \item Sources the selected script, catching any errors that occur during execution.
+#'   \item Compares the post-execution state with the pre-execution snapshot.
+#'   \item Interactively prompts the user to either keep or revert each detected change 
+#'       in the working directory, global options, or graphical parameters.
+#' }
+#'
+#' @return 
+#' Invisibly returns `NULL`. The function's primary purpose is to manage the 
+#' R session state through side effects.
+#'
+#' @importFrom utils select.list
+#' @importFrom graphics par
+#' @importFrom stats setNames
 #' @export
 
 audit_script <- function() {

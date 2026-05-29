@@ -1,7 +1,32 @@
 #' Interactive CPU Architect
-#' Scans local hardware to determine available CPU cores and generates 
-#' a robust parallel processing scaffold for high-volume data tasks.
 #'
+#' @description
+#' Scans local hardware to determine available CPU cores and generates 
+#' a robust parallel processing scaffold for high-volume data tasks, 
+#' automating the setup of a local cluster.
+#'
+#' @details
+#' The function guides the user through the creation of a parallel processing 
+#' pipeline:
+#' \enumerate{
+#'   \item Detects the total number of available CPU cores using `parallel::detectCores()`.
+#'   \item Prompts the user to select the number of cores to dedicate to the task, 
+#'       recommending leaving at least one core free for OS stability.
+#'   \item Collects the names of the target data object and the processing function.
+#'   \item Generates a complete R code snippet that:
+#'       \itemize{
+#'         \item Initializes a cluster using `makeCluster()`.
+#'         \item Exports the required function to the worker nodes via `clusterExport()`.
+#'         \item Executes the computation using `parLapply()`.
+#'         \item Safely shuts down the cluster using `stopCluster()`.
+#'       }
+#'   \item Offers to print the snippet to the console or save it directly to `parallel_scaffold.R`.
+#' }
+#'
+#' @return 
+#' Invisibly returns `TRUE` upon successful generation of the scaffold.
+#'
+#' @importFrom utils select.list
 #' @export
 
 scaffold_parallel <- function() {

@@ -1,12 +1,34 @@
 #' Bulk Loop Guardian
-#' A memory-safe wrapper for heavy iterations. Monitors RAM usage and 
+#'
+#' @description
+#' A memory-safe wrapper for heavy iterations that monitors RAM usage and 
 #' triggers an interactive failsafe if the environment approaches critical capacity.
+#'
+#' @details
+#' The function provides a safeguard against memory-related crashes during 
+#' large-scale batch processing:
+#' \enumerate{
+#'   \item Iterates through the `items` vector, applying `target_func` to each element.
+#'   \item Every 50 iterations, it checks the current memory usage using `gc()`.
+#'   \item If the memory usage exceeds `limit_mb`, it first attempts a deep garbage 
+#'       collection to recover RAM.
+#'   \item If memory remains above the threshold after GC, it triggers an interactive 
+#'       alarm, allowing the user to:
+#'       \itemize{
+#'         \item Save current progress to `save_path` and abort.
+#'         \item Ignore the limit and attempt to continue.
+#'         \item Abort immediately without saving.
+#'       }
+#' }
 #'
 #' @param items A vector or list of items to process.
 #' @param target_func The function to apply to each item.
-#' @param limit_mb Numeric. The memory limit in megabytes before triggering the alarm.
-#' @param save_path Character. Where to dump the emergency checkpoint data.
+#' @param limit_mb Numeric. The memory limit in megabytes before triggering the alarm. Defaults to `4000`.
+#' @param save_path Character. Where to dump the emergency checkpoint data. Defaults to `"emergency_checkpoint.rds"`.
+#'
 #' @return A list of successfully processed results.
+#'
+#' @importFrom utils select.list
 #' @export
 
 loop_guardian <- function(items, target_func, limit_mb = 4000, save_path = "emergency_checkpoint.rds") {

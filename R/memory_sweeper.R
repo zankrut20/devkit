@@ -1,5 +1,27 @@
 #' Interactive Memory Sweeper
-#' Scans the global environment for heavy objects and prompts for removal.
+#'
+#' @description
+#' Scans the global environment for memory-intensive objects and interactively 
+#' prompts the user to remove them to free up system RAM.
+#'
+#' @details
+#' The function implements a simple memory management workflow:
+#' \enumerate{
+#'   \item Prompts the user to define a size threshold (in MB) for flagging objects.
+#'   \item Calculates the size of all objects currently residing in the global environment.
+#'   \item Identifies and sorts objects that exceed the specified threshold.
+#'   \item Presents a selection menu allowing the user to choose one or more large 
+#'       objects for removal.
+#'   \item Executes `rm()` on the selected objects and immediately calls `gc()` 
+#'       to ensure the memory is released back to the system.
+#' }
+#'
+#' @return 
+#' Invisibly returns `NULL`. The function operates primarily through side effects 
+#' (modifying the global environment).
+#'
+#' @importFrom utils object.size select.list
+#' @export
 
 sweep_memory <- function() {
   # Dynamically ask for the threshold during execution

@@ -1,12 +1,32 @@
 #' The Network Diplomat
-#' Safely executes network requests across a list of URLs or endpoints.
-#' Interactively calculates safe rate limits and automatically retries failed 
-#' requests using exponential backoff.
+#'
+#' @description
+#' Safely executes network requests across a list of URLs or endpoints, 
+#' ensuring server politeness through interactive rate limiting and 
+#' resilience via automatic retries with exponential backoff.
+#'
+#' @details
+#' The function implements a robust network request manager:
+#' \enumerate{
+#'   \item \strong{Rate Limiting}: Prompts the user for the server's requests-per-minute 
+#'       limit and calculates a precise sleep interval between requests to avoid 
+#'       being blocked.
+#'   \item \strong{Retry Logic}: Wraps each request in a `tryCatch` block. If a request 
+#'       fails, it will retry up to `max_retries` times.
+#'   \item \strong{Exponential Backoff}: After each failure, the function waits for 
+#'       an increasing amount of time (5s, 10s, 20s, etc.) before retrying.
+#'   \item \strong{HTTP 429 Handling}: If a "Too Many Requests" (HTTP 429) error is 
+#'       detected, it adds an additional penalty delay to the backoff time.
+#'   \item \strong{Graceful Failure}: If all retries are exhausted, the target is 
+#'       marked as `NA` and the process continues to the next target.
+#' }
 #'
 #' @param targets A vector of URLs or target IDs to process.
 #' @param target_func The function that makes the network request (takes one target).
-#' @param max_retries Integer. Maximum number of times to retry a single failure.
-#' @return A list of successfully processed results, with NAs for permanent failures.
+#' @param max_retries Integer. Maximum number of times to retry a single failure. Defaults to `3`.
+#'
+#' @return A list of successfully processed results, with `NA` for permanent failures.
+#'
 #' @export
 
 network_diplomat <- function(targets, target_func, max_retries = 3) {

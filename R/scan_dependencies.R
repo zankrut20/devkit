@@ -1,7 +1,25 @@
 #' Unused Dependency Scanner
-#' Scans a script for function calls, cross-references attached packages, 
-#' and interactively resolves unused dependencies based on your current workflow.
 #'
+#' @description
+#' Scans a specified R script for function calls, cross-references them 
+#' against currently attached packages, and interactively helps the user 
+#' resolve unused dependencies based on their current workflow.
+#'
+#' @details
+#' The function provides different resolution paths depending on the detected context:
+#' \enumerate{
+#'   \item \strong{Package Development}: If a `DESCRIPTION` file is found, it flags 
+#'       unused packages that should be removed from the `Imports` field.
+#'   \item \strong{Data Analysis}: If the user is working in an active session, 
+#'       it offers to detach idle packages and call `gc()` to reclaim RAM.
+#'   \item \strong{Raw Script Cleaning}: It generates an optimized block of 
+#'       `library()` calls containing only the packages actually required by the script.
+#' }
+#'
+#' @return 
+#' Invisibly returns `TRUE` upon successful completion of the scan and resolution process.
+#'
+#' @importFrom utils select.list
 #' @export
 
 scan_dependencies <- function() {

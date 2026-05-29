@@ -1,7 +1,31 @@
 #' Temp-Cache Janitor
-#' Scans hidden R temporary directories for abandoned session data and caches,
-#' categorizes the storage waste, and interactively prompts for safe deletion.
 #'
+#' @description
+#' Scans hidden R temporary directories for abandoned session data and caches, 
+#' categorizes the storage waste, and interactively prompts the user for 
+#' safe deletion to reclaim disk space.
+#'
+#' @details
+#' The function performs a deep scan of the OS-level temporary directory 
+#' where R stores session data:
+#' \enumerate{
+#'   \item Identifies all directories matching the `RtmpXXXXXX` pattern.
+#'   \item Scans these directories and categorizes files into buckets:
+#'       \itemize{
+#'         \item \strong{Knitr/RMarkdown Caches}: `.knit.md`, `.utf8.md`, and `_cache` files.
+#'         \item \strong{Downloaded Packages}: `.tar.gz`, `.zip`, and `.tgz` files.
+#'         \item \strong{Raster/Image Files}: `.tif`, `.png`, `.jpg`, and `.grd` files.
+#'         \item \strong{General Session Data}: All other temporary files.
+#'       }
+#'   \item Calculates the total size of each bucket in megabytes.
+#'   \item Interactively prompts the user to select which buckets to permanently flush.
+#' }
+#'
+#' @return 
+#' Invisibly returns `NULL`. The function operates primarily through side effects 
+#' (deleting files from the disk).
+#'
+#' @importFrom utils select.list
 #' @export
 
 sweep_temp_cache <- function() {

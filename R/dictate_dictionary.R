@@ -1,5 +1,29 @@
 #' Interactive Data Dictionary Dictator
-#' Generates roxygen2 documentation by prompting the user for column descriptions one by one.
+#'
+#' @description
+#' Generates roxygen2 documentation for a data frame by interactively prompting 
+#' the user for a dataset title, a general description, and individual column 
+#' descriptions.
+#'
+#' @details
+#' The function performs the following steps:
+#' \enumerate{
+#'   \item Scans the global environment for all available data frames.
+#'   \item Prompts the user to select a target data frame for documentation.
+#'   \item Collects high-level metadata (title and description) for the dataset.
+#'   \item Iterates through each column, displaying its type and prompting the 
+#'       user for a descriptive label.
+#'   \item Assembles the collected information into a CRAN-compliant roxygen2 
+#'       block using the `\describe{}` tag.
+#'   \item Offers the user the choice to either print the resulting block to 
+#'       the console or append it to `R/data.R`.
+#' }
+#'
+#' @return 
+#' Invisibly returns `TRUE` upon completion.
+#'
+#' @importFrom utils select.list
+#' @export
 
 dictate_dictionary <- function() {
   # Find all data frames in the global environment

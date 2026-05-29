@@ -1,8 +1,27 @@
 #' Branch-Based Performance Benchmarker
-#' Interactively selects Git branches, runs a target script in an isolated environment,
-#' and compares the execution times across the selected branches.
-#' 
-#' @return Invisible data frame of benchmark results.
+#'
+#' @description
+#' Interactively selects Git branches, runs a target R script in an isolated environment 
+#' for each branch, and compares the execution times to identify performance regressions 
+#' or improvements across different versions of the codebase.
+#'
+#' @details
+#' The function performs the following workflow:
+#' \enumerate{
+#'   \item Verifies that the current directory is a Git repository.
+#'   \item Extracts available branches and allows the user to select specific ones or benchmark all.
+#'   \item Prompts for the path to the R script to be benchmarked.
+#'   \item Stashes any uncommitted changes to ensure a clean state.
+#'   \item Iterates through the selected branches, checking each one out and executing 
+#'       the target script within a fresh environment (`new.env()`).
+#'   \item Restores the original branch and pops the stash to return the workspace to its initial state.
+#' }
+#'
+#' @return 
+#' A data frame containing the benchmark results, including the branch name, 
+#' execution time in seconds, and the execution status (Success/Failed).
+#'
+#' @importFrom utils select.list
 #' @export
 
 benchmark_branches <- function() {

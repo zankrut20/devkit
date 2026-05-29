@@ -1,5 +1,26 @@
 #' Export Session Snapshot
-#' Generates an installation script for currently attached packages.
+#'
+#' @description
+#' Generates a reproducible installation script for all currently attached 
+#' external R packages, allowing the user to recreate the exact environment 
+#' in a different session or on another machine.
+#'
+#' @details
+#' The function provides two modes of environment capture:
+#' \enumerate{
+#'   \item \strong{Flexible Installation}: Generates a script that checks for 
+#'       missing packages and installs the latest available versions.
+#'   \item \strong{Strict Version Locking}: Uses `devtools::install_version()` 
+#'       to lock the environment to the exact versions currently installed 
+#'       on the system, ensuring maximum reproducibility.
+#' }
+#'
+#' @return 
+#' Invisibly returns `NULL`. The primary output is the creation of a 
+#' script file (e.g., `requirements.R`) in the current working directory.
+#'
+#' @importFrom utils packageVersion
+#' @export
 
 export_snapshot <- function() {
   # Dynamically ask for output preferences

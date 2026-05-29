@@ -1,7 +1,23 @@
 #' Interactive Release Candidate Architect
-#' Automates version bumping in DESCRIPTION and interactively scaffolds 
-#' formatted release notes in NEWS.md by prompting the user step-by-step.
 #'
+#' @description
+#' Automates the process of preparing a package release by bumping the version 
+#' in the `DESCRIPTION` file and interactively drafting release notes in `NEWS.md`.
+#'
+#' @details
+#' The function performs the following steps:
+#' \enumerate{
+#'   \item Verifies the existence of the `DESCRIPTION` file.
+#'   \item Parses the current version and prompts the user to choose between a Patch, Minor, or Major bump.
+#'   \item Updates the `Version` and `Date` fields in the `DESCRIPTION` file upon confirmation.
+#'   \item Interactively collects changelog items from the user and prepends them to `NEWS.md`.
+#' }
+#'
+#' @return 
+#' Invisibly returns `NULL`. The function operates primarily through side effects 
+#' (modifying files and printing messages).
+#'
+#' @importFrom utils select.list
 #' @export
 
 architect_release <- function() {

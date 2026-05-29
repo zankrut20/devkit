@@ -1,8 +1,26 @@
 #' Interactive Dependency Diplomat (Base R Edition)
+#'
+#' @description
 #' Scans package source code for external package calls and cross-references 
-#' them against the DESCRIPTION file to interactively resolve missing, unused, 
+#' them against the `DESCRIPTION` file to interactively resolve missing, unused, 
 #' or misclassified dependencies without requiring any external tools.
 #'
+#' @details
+#' The function implements a zero-dependency approach to dependency auditing:
+#' \enumerate{
+#'   \item Parses the `DESCRIPTION` file to identify currently declared `Imports` and `Suggests`.
+#'   \item Recursively scans the `R/`, `tests/`, and `vignettes/` directories for `::` calls, 
+#'       `library()` calls, and `require()` calls.
+#'   \item Filters out base R packages.
+#'   \item Interactively prompts the user to add missing dependencies or remove unused ones 
+#'       from the `DESCRIPTION` file.
+#' }
+#'
+#' @return 
+#' Invisibly returns `NULL`. The function modifies the `DESCRIPTION` file in-place 
+#' based on user interaction.
+#'
+#' @importFrom utils select.list
 #' @export
 
 audit_dependencies <- function() {

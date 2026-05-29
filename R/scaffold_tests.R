@@ -1,7 +1,31 @@
 #' Interactive Test-Suite Architect
-#' Scaffolds CRAN-compliant 'testthat' boilerplate for a specific function 
-#' by asking the user about expected behaviors, outputs, and edge cases.
 #'
+#' @description
+#' Scaffolds CRAN-compliant `testthat` boilerplate for a specific function 
+#' by interactively prompting the user about expected behaviors, output 
+#' types, and edge cases.
+#'
+#' @details
+#' The function automates the creation of a test file in the `tests/testthat/` 
+#' directory:
+#' \enumerate{
+#'   \item Verifies that the `tests/testthat` directory exists (suggesting 
+#'       `usethis::use_testthat()` if it does not).
+#'   \item Prompts for the name of the function to be tested and creates a 
+#'       corresponding `test-functionname.R` file.
+#'   \item Interactively determines the expected output type (e.g., data frame, 
+#'       list, numeric) to generate appropriate `expect_*` calls.
+#'   \item Asks whether to include tests for output dimensions or error 
+#'       handling for invalid inputs.
+#'   \item Writes a structured boilerplate file containing `test_that` blocks 
+#'       with TODO comments for the user to fill in mock data.
+#' }
+#'
+#' @return 
+#' Invisibly returns `FALSE` if the testing infrastructure is missing, 
+#' otherwise returns `NULL` (implicitly) upon successful file creation.
+#'
+#' @importFrom utils select.list
 #' @export
 
 scaffold_tests <- function() {

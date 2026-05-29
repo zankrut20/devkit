@@ -1,8 +1,29 @@
 #' Session Sentinel
-#' Interactively configures dual-logging for the current R session.
-#' Invisibility routes messages, warnings, and errors to a text file 
-#' while maintaining live console output.
 #'
+#' @description
+#' Interactively configures dual-logging for the current R session, 
+#' routing messages, warnings, and errors to a text file while 
+#' maintaining live console output.
+#'
+#' @details
+#' The function implements a background logging system using R's 
+#' global calling handlers:
+#' \enumerate{
+#'   \item Verifies that the R version is 4.0.0 or higher, as global 
+#'       calling handlers are required.
+#'   \item Prompts the user to select a logging level: either "All Output" 
+#'       (Messages, Warnings, and Errors) or "Errors Only".
+#'   \item Prompts for a log filename, defaulting to a timestamped 
+#'       `session_log_YYYYMMDD_HHMM.txt`.
+#'   \item Attaches `globalCallingHandlers` to the session, which 
+#'       intercepts conditions and appends them to the log file with 
+#'       a timestamp and type label.
+#' }
+#'
+#' @return 
+#' Invisibly returns `TRUE` upon successful activation of the sentinel.
+#'
+#' @importFrom utils select.list
 #' @export
 
 setup_sentinel <- function() {
