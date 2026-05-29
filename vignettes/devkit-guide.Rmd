@@ -2,11 +2,11 @@
 title: "Getting Started with devkit"
 author: "Zankrut Goyani"
 date: "`r Sys.Date()`"
-output: 
-  html_document:
-    toc: true
-    toc_float: true
-    theme: cosmo
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started with devkit}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
