@@ -1,0 +1,86 @@
+---
+title: "Getting Started with devkit"
+author: "Zankrut Goyani"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(devkit)
+```
+
+# Introduction
+
+`devkit` is a zero-dependency toolkit designed to assist R package developers and data scientists in maintaining high standards of code quality, session reproducibility, and system efficiency.
+
+This guide provides an overview of the toolkit's core modules and how to integrate them into your workflow.
+
+# 📦 Package Development Workflow
+
+## Dependency Management
+Maintaining a clean `DESCRIPTION` file is critical for CRAN compliance.
+
+- **`audit_dependencies()`**: Scans your `R/` and `tests/` directories to ensure all used packages are declared in `DESCRIPTION`.
+- **`scan_dependencies()`**: Identifies packages currently attached to your session that are not actually used in your code.
+- **`remove_package()`**: Safely removes a package while checking for orphan dependencies.
+
+## Scaffolding & Automation
+Reduce boilerplate and avoid manual errors with automated generators.
+
+- **`architect_release()`**: Interactively bumps the package version and generates a `NEWS.md` entry.
+- **`architect_vignette()`**: Creates a CRAN-compliant RMarkdown vignette structure.
+- **`scaffold_tests()`**: Generates `testthat` boilerplate for your functions.
+- **`scaffold_parallel()`**: Generates the necessary code to set up a parallel cluster.
+
+# 🛡️ Session Auditing & Reproducibility
+
+## State Management
+Ensure your scripts don't leave the user's environment in a messy state.
+
+- **`audit_script()`**: Captures the state of `options()`, `par()`, and `getwd()` before and after a script runs, prompting you to revert changes.
+- **`detect_masking()`**: Identifies when functions from different packages share the same name and helps you lock in the priority.
+- **`export_snapshot()`**: Creates a script to recreate your current session's package environment.
+
+## Reproducibility Testing
+- **`simulate_clean_room()`**: Runs your script in a completely vanilla R session (`--vanilla`) to ensure it doesn't rely on hidden local state.
+
+# 🧹 System & Memory Optimization
+
+## Memory Cleanup
+Prevent R from crashing during large-scale data processing.
+
+- **`sweep_memory()`**: Interactively identifies and removes large objects from the global environment.
+- **`hunt_zombies()`**: Cleans up orphaned graphics devices and temporary files.
+- **`sweep_temp_cache()`**: Flushes hidden temporary caches (e.g., knitr, raster).
+
+## Safe Processing
+- **`loop_guardian()`**: Wraps long loops with a memory monitor that alerts you before you hit your RAM limit.
+- **`dispatch_checkpoints()`**: Implements a save-and-resume system for batch processing, protecting your work from crashes.
+
+# 🔐 Data Privacy & Documentation
+
+## Anonymization
+- **`mask_identity()`**: A guided workflow to scramble or drop PII columns in a dataframe while preserving statistical distributions.
+
+## Documentation
+- **`dictate_dictionary()`**: Interactively generates a roxygen2 `@format` block for your datasets, ensuring your data dictionaries are professional and complete.
+
+# 🌐 Network Utilities
+
+- **`network_diplomat()`**: A wrapper for network requests that implements exponential backoff and respects rate limits (HTTP 429).
+
+# Summary Table
+
+| Module | Key Function | Primary Goal |
+| :--- | :--- | :--- |
+| **Meta** | `architect_release()` | Versioning & News |
+| **Audit** | `audit_dependencies()` | CRAN Compliance |
+| **State** | `audit_script()` | Session Integrity |
+| **Memory** | `hunt_zombies()` | Resource Cleanup |
+| **Privacy** | `mask_identity()` | PII Anonymization |
+| **Batch** | `dispatch_checkpoints()` | Crash Resilience |

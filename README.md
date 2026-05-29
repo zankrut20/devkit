@@ -1,6 +1,6 @@
 # devkit
 
-`devkit` is a comprehensive R development toolkit designed to streamline package management, environment setup, session auditing, and batch processing.
+`devkit` is a professional, zero-dependency R development toolkit designed to streamline package management, environment setup, session auditing, and batch processing. It provides a suite of utilities to help developers maintain CRAN compliance and optimize their development workflow.
 
 ## 🚀 Installation
 
@@ -11,7 +11,7 @@ You can install `devkit` directly from GitHub:
 if (!require("devtools")) install.packages("devtools")
 
 # Install devkit
-devtools::install_github("zankrut20/Useful-R-Programs")
+devtools::install_github("zankrut20/devkit")
 ```
 
 ## 🛠️ Usage
@@ -32,16 +32,16 @@ hunt_zombies()
 
 ### 📦 Package Management
 - `audit_dependencies()`: Verifies DESCRIPTION file vs actual code usage.
-- `remove()`: Smart package removal with dependency checking.
+- `remove_package()`: Smart package removal with orphan dependency checking.
 - `scan_dependencies()`: Identifies unused packages in your session.
 
 ### 🧹 Memory Management
-- `memory_sweeper()`: Removes large objects and triggers garbage collection.
+- `sweep_memory()`: Removes large objects and triggers garbage collection.
 - `hunt_zombies()`: Cleans hidden temp files and orphaned graphics devices.
 - `sweep_temp_cache()`: Flushes R session caches across the system.
 
 ### 🔧 Development Environment
-- `dev_bootstrap()`: Installs and attaches core dev tools.
+- `bootstrap_dev_env()`: Installs and attaches core dev tools.
 - `manage_deprecation()`: Scaffolds deprecation wrappers and refactors calls.
 - `setup_preflight()`: Configures Git pre-commit hooks for safety.
 - `setup_sentinel()`: Enables dual-logging for session reproducibility.

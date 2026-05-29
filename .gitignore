@@ -6,6 +6,8 @@
 
 # RStudio specific files
 .Rproj.user/
+*.Rproj
+LICENSE.md
 
 # Package building and testing artifacts
 *.Rcheck/
