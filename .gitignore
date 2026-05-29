@@ -36,3 +36,7 @@ renv/staging/
 # OS specific hidden files
 .DS_Store
 Thumbs.db
+docs
+.Rproj.user
+.httr-oauth
+.quarto
