@@ -88,4 +88,4 @@ This package is licensed under the MIT License.
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+Contributions are welcome! Please see [CONTRIBUTING.md](https://github.com/zankrut20/devkit/blob/master/CONTRIBUTING.md) for guidelines.
