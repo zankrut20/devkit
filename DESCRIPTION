@@ -1,7 +1,7 @@
 Package: devkit
 Type: Package
 Title: Practical Utilities for Package Development and Session Auditing
-Version: 0.0.1
+Version: 1.0.0
 Authors@R: 
   c(person(given = "Zankrut",
            family = "Goyani",
