@@ -6,11 +6,12 @@
 
 ## Citation
 
-Goyani Z (2026). *devkit: R Development Toolkit*. R package version
-0.0.1, <https://zankrut20.github.io/devkit/>.
+Goyani Z (2026). *devkit: Practical Utilities for Package Development
+and Session Auditing*. R package version 0.0.1,
+<https://zankrut20.github.io/devkit/>.
 
     @Manual{,
-      title = {devkit: R Development Toolkit},
+      title = {devkit: Practical Utilities for Package Development and Session Auditing},
       author = {Zankrut Goyani},
       year = {2026},
       note = {R package version 0.0.1},

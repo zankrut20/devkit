@@ -1,0 +1,156 @@
+# Performance, Memory, and Resilience Workflows
+
+## Introduction
+
+R is an in-memory language. When working with large datasets,
+long-running loops, parallel processes, or external web APIs, system
+memory can quickly fill up, causing R to crash.
+
+`devkit` provides resource optimization and resilience modules designed
+to keep your environment lean, secure, and crash-proof.
+
+------------------------------------------------------------------------
+
+## 🧹 Interactive Memory Cleanup
+
+R does not always immediately release memory back to the operating
+system when objects are deleted. Large data frames or matrices can
+linger in your environment.
+
+### Sweeping Large Global Objects
+
+[`sweep_memory()`](https://zankrut20.github.io/devkit/reference/sweep_memory.md)
+inspects the global environment, identifies objects exceeding a
+specified size threshold (in MB), and prompts you to delete them.
+
+``` r
+
+# Interactively sweep objects larger than 10MB
+sweep_memory(threshold = 10)
+```
+
+### Cleaning Temporary Files & Orphaned Devices
+
+R sessions generate temporary directories and graphics devices (e.g.,
+PDFs, PNGs). If a script errors out before closing a device, the file
+handles remain locked.
+
+[`hunt_zombies()`](https://zankrut20.github.io/devkit/reference/hunt_zombies.md)
+scans for and closes orphaned graphics devices and removes standard R
+temp files.
+
+``` r
+
+# Close zombie graphics devices and flush temp files
+hunt_zombies()
+```
+
+[`sweep_temp_cache()`](https://zankrut20.github.io/devkit/reference/sweep_temp_cache.md)
+specifically targets cache directories created by packages (such as
+`knitr`, `raster`, or `memoise`), reclaiming disk space.
+
+``` r
+
+# Flush cache directories to free disk space
+sweep_temp_cache()
+```
+
+------------------------------------------------------------------------
+
+## 🛡️ Safeguarding Iterations with the Loop Guardian
+
+When running large loops that generate or accumulate data, you run the
+risk of running out of RAM (Out of Memory/OOM crash).
+
+[`loop_guardian()`](https://zankrut20.github.io/devkit/reference/loop_guardian.md)
+checks your system’s free memory at the end of each iteration. If the
+available RAM drops below a critical threshold, it halts the loop
+safely, saving your state and preventing a system-wide crash.
+
+``` r
+
+# Define a long loop with the loop guardian
+data_list <- list()
+for (i in 1:1000) {
+  # Perform heavy computation
+  data_list[[i]] <- runif(1e6)
+  
+  # Guard loop; will halt if free memory is less than 500MB
+  loop_guardian(threshold_mb = 500, current_iteration = i)
+}
+```
+
+------------------------------------------------------------------------
+
+## 💾 Crash-Resilient Batch Processing (Save & Resume)
+
+For jobs that run for hours or days, an unexpected error or power outage
+can wipe out all progress.
+
+[`dispatch_checkpoints()`](https://zankrut20.github.io/devkit/reference/dispatch_checkpoints.md)
+wraps batch operations in a checkpointing system. It saves progress at
+specified intervals. If the run is interrupted, re-running the command
+automatically resumes execution from the last saved checkpoint.
+
+``` r
+
+# List of items to process
+items <- paste0("item_", 1:100)
+
+# Resilient batch processing with checkpoints
+results <- dispatch_checkpoints(
+  items = items,
+  process_fun = function(item) {
+    # Perform computation
+    Sys.sleep(0.1)
+    return(paste(item, "processed"))
+  },
+  checkpoint_dir = "checkpoints",
+  checkpoint_interval = 10
+)
+```
+
+------------------------------------------------------------------------
+
+## ⚡ Scaffolding Parallel Pipelines
+
+Setting up parallel clusters in R requires boilerplate code (registering
+cores, setting up clusters, handling errors, and cleaning up clusters on
+exit).
+
+[`scaffold_parallel()`](https://zankrut20.github.io/devkit/reference/scaffold_parallel.md)
+generates a production-ready parallel execution template tailored to
+your specific data object and core requirements.
+
+``` r
+
+# Generate parallel setup code for a dataframe 'sales_data' inside a function
+scaffold_parallel(
+  data_obj = "sales_data",
+  func_name = "process_sales",
+  cores = 4
+)
+```
+
+------------------------------------------------------------------------
+
+## 🌐 Resilient and Polite Network Requests
+
+When fetching data from web APIs, network hiccups or rate limits (HTTP
+status 429) can break your pipeline.
+
+[`network_diplomat()`](https://zankrut20.github.io/devkit/reference/network_diplomat.md)
+wraps standard HTTP requests, implementing exponential backoff (retrying
+with increasing delays) and automatically respecting the rate limit
+headers sent by servers.
+
+``` r
+
+# Make a rate-resilient API request
+api_response <- network_diplomat(
+  url = "https://api.example.com/data",
+  method = "GET",
+  max_retries = 5,
+  backoff_factor = 2
+)
+```

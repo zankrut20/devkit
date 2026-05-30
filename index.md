@@ -8,14 +8,20 @@ workflow.
 
 ## 🚀 Installation
 
-You can install `devkit` directly from GitHub:
+Install the released version of `devkit` from
+[CRAN](https://CRAN.R-project.org/package=devkit) with:
 
 ``` r
 
-# Install devtools if not already installed
-if (!require("devtools")) install.packages("devtools")
+install.packages("devkit")
+```
 
-# Install devkit
+Or install the development version from
+[GitHub](https://github.com/zankrut20/devkit) with:
+
+``` r
+
+# install.packages("devtools")
 devtools::install_github("zankrut20/devkit")
 ```
 
@@ -38,78 +44,78 @@ hunt_zombies()
 
 ### 📦 Package Management
 
-- [`audit_dependencies()`](reference/audit_dependencies.md): Verifies
-  DESCRIPTION file vs actual code usage.
-- [`remove_package()`](reference/remove_package.md): Smart package
-  removal with orphan dependency checking.
-- [`remove_user_installed_packages()`](reference/remove_user_installed_packages.md):
+- [`audit_dependencies()`](https://zankrut20.github.io/devkit/reference/audit_dependencies.md):
+  Verifies DESCRIPTION file vs actual code usage.
+- [`remove_package()`](https://zankrut20.github.io/devkit/reference/remove_package.md):
+  Smart package removal with orphan dependency checking.
+- [`remove_user_installed_packages()`](https://zankrut20.github.io/devkit/reference/remove_user_installed_packages.md):
   Cleans all user-installed packages while preserving base/recommended
   ones.
-- [`scan_dependencies()`](reference/scan_dependencies.md): Identifies
-  unused packages in your session.
+- [`scan_dependencies()`](https://zankrut20.github.io/devkit/reference/scan_dependencies.md):
+  Identifies unused packages in your session.
 
 ### 🧹 Memory Management
 
-- [`sweep_memory()`](reference/sweep_memory.md): Removes large objects
-  and triggers garbage collection.
-- [`hunt_zombies()`](reference/hunt_zombies.md): Cleans hidden temp
-  files and orphaned graphics devices.
-- [`sweep_temp_cache()`](reference/sweep_temp_cache.md): Flushes R
-  session caches across the system.
+- [`sweep_memory()`](https://zankrut20.github.io/devkit/reference/sweep_memory.md):
+  Removes large objects and triggers garbage collection.
+- [`hunt_zombies()`](https://zankrut20.github.io/devkit/reference/hunt_zombies.md):
+  Cleans hidden temp files and orphaned graphics devices.
+- [`sweep_temp_cache()`](https://zankrut20.github.io/devkit/reference/sweep_temp_cache.md):
+  Flushes R session caches across the system.
 
 ### 🔧 Development Environment
 
-- [`bootstrap_dev_env()`](reference/bootstrap_dev_env.md): Installs and
-  attaches core dev tools.
-- [`manage_deprecation()`](reference/manage_deprecation.md): Scaffolds
-  deprecation wrappers and refactors calls.
-- [`setup_preflight()`](reference/setup_preflight.md): Configures Git
-  pre-commit hooks for safety.
-- [`setup_sentinel()`](reference/setup_sentinel.md): Enables
-  dual-logging for session reproducibility.
+- [`bootstrap_dev_env()`](https://zankrut20.github.io/devkit/reference/bootstrap_dev_env.md):
+  Installs and attaches core dev tools.
+- [`manage_deprecation()`](https://zankrut20.github.io/devkit/reference/manage_deprecation.md):
+  Scaffolds deprecation wrappers and refactors calls.
+- [`setup_preflight()`](https://zankrut20.github.io/devkit/reference/setup_preflight.md):
+  Configures Git pre-commit hooks for safety.
+- [`setup_sentinel()`](https://zankrut20.github.io/devkit/reference/setup_sentinel.md):
+  Enables dual-logging for session reproducibility.
 
 ### 📊 Session Management
 
-- [`audit_script()`](reference/audit_script.md): Snapshots session state
-  before and after script execution.
-- [`detect_masking()`](reference/detect_masking.md): Resolves namespace
-  conflicts and function masking.
-- [`export_snapshot()`](reference/export_snapshot.md): Exports attached
-  packages to an installation script.
+- [`audit_script()`](https://zankrut20.github.io/devkit/reference/audit_script.md):
+  Snapshots session state before and after script execution.
+- [`detect_masking()`](https://zankrut20.github.io/devkit/reference/detect_masking.md):
+  Resolves namespace conflicts and function masking.
+- [`export_snapshot()`](https://zankrut20.github.io/devkit/reference/export_snapshot.md):
+  Exports attached packages to an installation script.
 
 ### ⚙️ Batch Processing
 
-- [`dispatch_checkpoints()`](reference/dispatch_checkpoints.md):
+- [`dispatch_checkpoints()`](https://zankrut20.github.io/devkit/reference/dispatch_checkpoints.md):
   Crash-resilient batch processing with recovery.
-- [`loop_guardian()`](reference/loop_guardian.md): Memory-safe iteration
-  with RAM monitoring.
-- [`network_diplomat()`](reference/network_diplomat.md): Rate-limited
-  network requests with exponential backoff.
+- [`loop_guardian()`](https://zankrut20.github.io/devkit/reference/loop_guardian.md):
+  Memory-safe iteration with RAM monitoring.
+- [`network_diplomat()`](https://zankrut20.github.io/devkit/reference/network_diplomat.md):
+  Rate-limited network requests with exponential backoff.
 
 ### 🏗️ Code Generation
 
-- [`architect_release()`](reference/architect_release.md): Automates
-  version bumping and release notes.
-- [`architect_vignette()`](reference/architect_vignette.md): Scaffolds
-  CRAN-compliant vignettes.
-- [`scaffold_parallel()`](reference/scaffold_parallel.md): Generates
-  parallel processing boilerplate.
-- [`scaffold_tests()`](reference/scaffold_tests.md): Generates testthat
-  boilerplate.
-- [`simulate_clean_room()`](reference/simulate_clean_room.md): Verifies
-  script reproducibility in a vanilla session.
+- [`architect_release()`](https://zankrut20.github.io/devkit/reference/architect_release.md):
+  Automates version bumping and release notes.
+- [`architect_vignette()`](https://zankrut20.github.io/devkit/reference/architect_vignette.md):
+  Scaffolds CRAN-compliant vignettes.
+- [`scaffold_parallel()`](https://zankrut20.github.io/devkit/reference/scaffold_parallel.md):
+  Generates parallel processing boilerplate.
+- [`scaffold_tests()`](https://zankrut20.github.io/devkit/reference/scaffold_tests.md):
+  Generates testthat boilerplate.
+- [`simulate_clean_room()`](https://zankrut20.github.io/devkit/reference/simulate_clean_room.md):
+  Verifies script reproducibility in a vanilla session.
 
 ### 🔐 Privacy
 
-- [`mask_identity()`](reference/mask_identity.md): Interactively
-  anonymizes PII in datasets.
+- [`mask_identity()`](https://zankrut20.github.io/devkit/reference/mask_identity.md):
+  Interactively anonymizes PII in datasets.
 
 ### 🛠️ Utilities
 
-- [`benchmark_branches()`](reference/benchmark_branches.md): Compares
-  performance across Git branches.
-- [`dictate_dictionary()`](reference/dictate_dictionary.md): Generates
-  roxygen2 documentation for data frames.
+- [`benchmark_branches()`](https://zankrut20.github.io/devkit/reference/benchmark_branches.md):
+  Compares performance across Git branches.
+- [`dictate_dictionary()`](https://zankrut20.github.io/devkit/reference/dictate_dictionary.md):
+  Generates roxygen2 documentation for data frames.
 
 ## 📝 License
 
@@ -117,5 +123,6 @@ This package is licensed under the MIT License.
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md)
+Contributions are welcome! Please see
+[CONTRIBUTING.md](https://zankrut20.github.io/devkit/CONTRIBUTING.md)
 for guidelines.
