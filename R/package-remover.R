@@ -14,6 +14,9 @@
 #'   \item Executes `remove.packages()` on the selected items.
 #' }
 #'
+#' @section Warning:
+#' This function modifies files on disk or the global environment. Please ensure you have a backup or are using version control (e.g., Git) before execution.
+#'
 #' @param pkg Character. The name of the package to remove.
 #' @param recursive Logical. Whether to check for recursive dependencies. Defaults to `FALSE`.
 #'
@@ -21,6 +24,11 @@
 #'
 #' @importFrom utils installed.packages select.list remove.packages
 #' @importFrom tools package_dependencies
+#' @examples
+#' \dontrun{
+#' # This is an interactive or file-system modifying function
+#' # that requires manual user confirmation or action.
+#' }
 #' @export
 
 remove_package <- function(pkg, recursive = FALSE) {

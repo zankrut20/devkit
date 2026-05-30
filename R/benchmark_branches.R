@@ -7,21 +7,30 @@
 #'
 #' @details
 #' The function performs the following workflow:
-#' \enumerate{
+#'
+#' \itemize{
 #'   \item Verifies that the current directory is a Git repository.
 #'   \item Extracts available branches and allows the user to select specific ones or benchmark all.
 #'   \item Prompts for the path to the R script to be benchmarked.
 #'   \item Stashes any uncommitted changes to ensure a clean state.
 #'   \item Iterates through the selected branches, checking each one out and executing 
-#'       the target script within a fresh environment (`new.env()`).
+#'       the target script within a fresh environment \code{new.env()}.
 #'   \item Restores the original branch and pops the stash to return the workspace to its initial state.
 #' }
+#'
+#' @section Warning:
+#' This function modifies files on disk or the global environment. Please ensure you have a backup or are using version control (e.g., Git) before execution.
 #'
 #' @return 
 #' A data frame containing the benchmark results, including the branch name, 
 #' execution time in seconds, and the execution status (Success/Failed).
 #'
 #' @importFrom utils select.list
+#' @examples
+#' \dontrun{
+#' # This is an interactive or file-system modifying function
+#' # that requires manual user confirmation or action.
+#' }
 #' @export
 
 benchmark_branches <- function() {

@@ -28,3 +28,14 @@ The function manages the deprecation lifecycle through the following steps:
       of the old function and interactively replaces them with the new one.
 }
 }
+\section{Warning}{
+
+This function modifies files on disk or the global environment. Please ensure you have a backup or are using version control (e.g., Git) before execution.
+}
+
+\examples{
+\dontrun{
+# This is an interactive or file-system modifying function
+# that requires manual user confirmation or action.
+}
+}

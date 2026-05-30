@@ -23,12 +23,20 @@
 #'   \item Offers to print the snippet to the console or save it directly to `parallel_scaffold.R`.
 #' }
 #'
+#' @section Warning:
+#' This function modifies files on disk or the global environment. Please ensure you have a backup or are using version control (e.g., Git) before execution.
+#'
 #' @return 
 #' Invisibly returns a named list with components: \code{status} ("done",
 #' "cancelled", or "error"), \code{cores} (integer), \code{data_object},
 #' \code{function_name}, and \code{saved_to} (file path or \code{NULL}).
 #'
 #' @importFrom utils select.list
+#' @examples
+#' \dontrun{
+#' # This is an interactive or file-system modifying function
+#' # that requires manual user confirmation or action.
+#' }
 #' @export
 
 scaffold_parallel <- function() {

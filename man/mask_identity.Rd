@@ -28,3 +28,14 @@ The function provides a guided workflow for data anonymization:
   \item Optionally generates a `dput()` output of the first 20 rows for easy, safe sharing.
 }
 }
+\section{Warning}{
+
+This function modifies files on disk or the global environment. Please ensure you have a backup or are using version control (e.g., Git) before execution.
+}
+
+\examples{
+\dontrun{
+# This is an interactive or file-system modifying function
+# that requires manual user confirmation or action.
+}
+}

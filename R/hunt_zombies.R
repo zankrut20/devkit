@@ -17,6 +17,9 @@
 #'       generations of memory.
 #' }
 #'
+#' @section Warning:
+#' This function modifies files on disk or the global environment. Please ensure you have a backup or are using version control (e.g., Git) before execution.
+#'
 #' @return 
 #' Invisibly returns a named list with components: \code{status} ("done" or
 #' "cancelled"), \code{actions_taken} (character vector),
@@ -24,6 +27,11 @@
 #'
 #' @importFrom utils select.list
 #' @importFrom grDevices dev.list graphics.off
+#' @examples
+#' \dontrun{
+#' # This is an interactive or file-system modifying function
+#' # that requires manual user confirmation or action.
+#' }
 #' @export
 
 hunt_zombies <- function() {

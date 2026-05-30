@@ -27,6 +27,11 @@
 #'
 #' @return A list of successfully processed results, with `NA` for permanent failures.
 #'
+#' @examples
+#' \dontrun{
+#' # This is an interactive or file-system modifying function
+#' # that requires manual user confirmation or action.
+#' }
 #' @export
 
 network_diplomat <- function(targets, target_func, max_retries = 3) {

@@ -21,8 +21,19 @@ The function operates as follows:
   \item Captures the current state of `getwd()`, `options()`, and `par()`.
   \item Prompts the user to select an R script from the current directory to execute.
   \item Sources the selected script, catching any errors that occur during execution.
-  \item Compares the post-execution state with the pre-execution snapshot.
-  \item Interactively prompts the user to either keep or revert each detected change 
-      in the working directory, global options, or graphical parameters.
+  \item Captures the "Before" state (working directory, loaded packages, global objects).
+  \item Executes the target script.
+  \item Captures the "After" state and reports the delta.
+}
+}
+\section{Warning}{
+
+This function modifies files on disk or the global environment. Please ensure you have a backup or are using version control (e.g., Git) before execution.
+}
+
+\examples{
+\dontrun{
+# This is an interactive or file-system modifying function
+# that requires manual user confirmation or action.
 }
 }

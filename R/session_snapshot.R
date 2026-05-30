@@ -15,12 +15,20 @@
 #'       on the system, ensuring maximum reproducibility.
 #' }
 #'
+#' @section Warning:
+#' This function modifies files on disk or the global environment. Please ensure you have a backup or are using version control (e.g., Git) before execution.
+#'
 #' @return 
 #' Invisibly returns a named list with components: \code{status} ("done" or
 #' "clean"), \code{packages} (character vector), \code{file} (output path),
 #' and \code{version_locked} (logical).
 #'
 #' @importFrom utils packageVersion
+#' @examples
+#' \dontrun{
+#' # This is an interactive or file-system modifying function
+#' # that requires manual user confirmation or action.
+#' }
 #' @export
 
 export_snapshot <- function() {

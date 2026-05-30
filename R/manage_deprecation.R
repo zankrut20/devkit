@@ -17,12 +17,20 @@
 #'       of the old function and interactively replaces them with the new one.
 #' }
 #'
+#' @section Warning:
+#' This function modifies files on disk or the global environment. Please ensure you have a backup or are using version control (e.g., Git) before execution.
+#'
 #' @return 
 #' Invisibly returns a named list with components: \code{status} ("done",
 #' "cancelled", or "error"), \code{old_function}, \code{new_function},
 #' \code{wrapper_file}, and \code{replacements} (integer count).
 #'
 #' @importFrom utils select.list
+#' @examples
+#' \dontrun{
+#' # This is an interactive or file-system modifying function
+#' # that requires manual user confirmation or action.
+#' }
 #' @export
 
 manage_deprecation <- function() {

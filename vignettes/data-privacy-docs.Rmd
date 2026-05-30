@@ -1,0 +1,115 @@
+---
+title: "Data Privacy and Documentation Workflows"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Data Privacy and Documentation Workflows}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
+library(devkit)
+```
+
+# Introduction
+
+When sharing datasets or publishing packages containing data, developers must ensure that:
+1. Sensitive Personally Identifiable Information (PII) is anonymized.
+2. Datasets are thoroughly documented with standard data dictionaries.
+3. Package functions are covered by reliable test suites.
+
+`devkit` provides modules to streamline data masking, roxygen2 documentation generation, and unit-test scaffolding.
+
+---
+
+# 🔐 Anonymizing Personally Identifiable Information (PII)
+
+Before sharing research data or package datasets, PII like names, email addresses, phone numbers, and exact locations must be scrambled or removed.
+
+`mask_identity()` runs an interactive console wizard that reads a dataframe, prompts you to select columns containing sensitive data, and applies appropriate masking algorithms (e.g., scrambling strings, grouping ages, or replacing values with random identifiers).
+
+## Example: Masking a Patient Dataset
+Imagine we have a dummy clinical dataset containing sensitive columns:
+
+```r
+# Create a dummy patient dataset
+patient_data <- data.frame(
+  patient_id = 1:5,
+  name = c("Alice Smith", "Bob Jones", "Charlie Brown", "Diana Prince", "Evan Wright"),
+  age = c(34, 45, 23, 56, 41),
+  email = c("alice@mail.com", "bob@mail.com", "charlie@mail.com", "diana@mail.com", "evan@mail.com"),
+  diagnosis = c("Flu", "Cold", "Flu", "Allergy", "Healthy"),
+  stringsAsFactors = FALSE
+)
+
+# Run the interactive masking wizard
+masked_data <- mask_identity(patient_data)
+
+# The wizard will prompt you:
+# 1. Scramble/Anonymize the 'name' column? Yes -> replaces names with scrambled strings (e.g., 'Ujdfn Hsoiu')
+# 2. Scramble/Anonymize the 'email' column? Yes -> replaces emails with random strings (e.g., 'mask_1@example.com')
+# 3. Apply category grouping to 'age'? Yes -> groups exact ages into ranges (e.g., '30-39', '40-49')
+
+# Verify the masked dataset
+head(masked_data)
+```
+
+---
+
+# 📝 Dictating Data Dictionaries
+
+CRAN requires that all package datasets are documented using a `@format` roxygen2 block listing the column names and their descriptions. Documenting this manually is tedious.
+
+`dictate_dictionary()` runs an interactive wizard that inspects your dataframe's column names and classes, prompts you to input description bullets for each column, and generates a pre-formatted roxygen2 documentation block ready to be pasted into your package code files.
+
+```r
+# Create a dummy sales dataframe
+sales_df <- data.frame(
+  transaction_id = 1001:1003,
+  amount_usd = c(12.50, 45.00, 120.99),
+  category = c("Book", "Electronics", "Clothing"),
+  stringsAsFactors = FALSE
+)
+
+# Generate a roxygen2 data dictionary interactively
+dict_res <- dictate_dictionary(sales_df)
+
+# The console wizard will prompt you for descriptions:
+# - 'transaction_id': Unique transaction identifier
+# - 'amount_usd': Transaction amount in US Dollars
+# - 'category': Category of item purchased
+
+# Print the generated roxygen2 lines
+cat(dict_res$roxygen_block, sep = "\n")
+```
+
+The output will be formatted like:
+```r
+#' @format A data frame with 3 rows and 3 variables:
+#' \describe{
+#'   \item{transaction_id}{Unique transaction identifier}
+#'   \item{amount_usd}{Transaction amount in US Dollars}
+#'   \item{category}{Category of item purchased}
+#' }
+```
+
+---
+
+# 🧪 Scaffolding Unit Tests
+
+Writing test suites for your functions ensures code reliability. `scaffold_tests()` creates test files under `tests/testthat/` with structural boilerplate matching your function's signature and return type.
+
+```r
+# Scaffold a test file for the function 'calculate_mean'
+scaffold_tests(target_func = "calculate_mean")
+```
+
+This generates `tests/testthat/test-calculate_mean.R` with pre-configured assertions:
+
+```r
+test_that("calculate_mean works as expected", {
+  # Add your assertions here
+  # expect_equal(calculate_mean(x), expected_value)
+})
+```

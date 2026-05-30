@@ -19,13 +19,21 @@
 #'       code snippet to explicitly assign the preferred functions in the global environment 
 #'       and offers to apply these assignments immediately.
 #' }
-#'
+#' 
+#' @section Warning:
+#' This function modifies files on disk or the global environment. Please ensure you have a backup or are using version control (e.g., Git) before execution.
+#' 
 #' @return 
 #' Invisibly returns a named list with components: \code{status} ("done" or
 #' "clean"), \code{conflicts} (named list), \code{resolutions} (named list),
 #' and \code{context} ("package" or "standalone").
 #'
 #' @importFrom utils select.list
+#' @examples
+#' \dontrun{
+#' # This is an interactive or file-system modifying function
+#' # that requires manual user confirmation or action.
+#' }
 #' @export
 
 detect_masking <- function() {

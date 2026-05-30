@@ -1,4 +1,54 @@
-url: ~
+url: https://zankrut20.github.io/devkit/
 template:
   bootstrap: 5
+
+reference:
+  - title: "Package Management"
+    desc: "Tools for auditing and cleaning package dependencies."
+    contents:
+      - audit_dependencies
+      - remove_package
+      - remove_user_installed_packages
+      - scan_dependencies
+  - title: "Memory & System Optimization"
+    desc: "Utilities for reclaiming RAM and cleaning temporary caches."
+    contents:
+      - sweep_memory
+      - hunt_zombies
+      - sweep_temp_cache
+  - title: "Development Environment"
+    desc: "Scaffolding and automation for R package development."
+    contents:
+      - bootstrap_dev_env
+      - manage_deprecation
+      - setup_preflight
+      - setup_sentinel
+  - title: "Session Auditing & Reproducibility"
+    desc: "Tools for capturing state and verifying script reproducibility."
+    contents:
+      - audit_script
+      - detect_masking
+      - export_snapshot
+      - simulate_clean_room
+      - benchmark_branches
+  - title: "Batch Processing & Network"
+    desc: "Resilient execution and polite network requests."
+    contents:
+      - dispatch_checkpoints
+      - loop_guardian
+      - network_diplomat
+  - title: "Code Generation & Documentation"
+    desc: "Automated boilerplate and data dictionary generation."
+    contents:
+      - architect_release
+      - architect_vignette
+      - scaffold_parallel
+      - scaffold_tests
+      - dictate_dictionary
+  - title: "Privacy"
+    desc: "Tools for anonymizing sensitive data."
+    contents:
+      - mask_identity
+
+
 

@@ -26,9 +26,17 @@
 #' @param limit_mb Numeric. The memory limit in megabytes before triggering the alarm. Defaults to `4000`.
 #' @param save_path Character. Where to dump the emergency checkpoint data. Defaults to `"emergency_checkpoint.rds"`.
 #'
+#' @section Warning:
+#' This function modifies files on disk or the global environment. Please ensure you have a backup or are using version control (e.g., Git) before execution.
+#'
 #' @return A list of successfully processed results.
 #'
 #' @importFrom utils select.list
+#' @examples
+#' \dontrun{
+#' # This is an interactive or file-system modifying function
+#' # that requires manual user confirmation or action.
+#' }
 #' @export
 
 loop_guardian <- function(items, target_func, limit_mb = 4000, save_path = "emergency_checkpoint.rds") {

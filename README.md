@@ -33,6 +33,7 @@ hunt_zombies()
 ### 📦 Package Management
 - `audit_dependencies()`: Verifies DESCRIPTION file vs actual code usage.
 - `remove_package()`: Smart package removal with orphan dependency checking.
+- `remove_user_installed_packages()`: Cleans all user-installed packages while preserving base/recommended ones.
 - `scan_dependencies()`: Identifies unused packages in your session.
 
 ### 🧹 Memory Management

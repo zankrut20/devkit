@@ -21,12 +21,20 @@
 #'       with TODO comments for the user to fill in mock data.
 #' }
 #'
+#' @section Warning:
+#' This function modifies files on disk or the global environment. Please ensure you have a backup or are using version control (e.g., Git) before execution.
+#'
 #' @return 
 #' Invisibly returns a named list with components: \code{status} ("done",
 #' "cancelled", or "error"), \code{function_name}, \code{test_file},
 #' and \code{output_type}.
 #'
 #' @importFrom utils select.list
+#' @examples
+#' \dontrun{
+#' # This is an interactive or file-system modifying function
+#' # that requires manual user confirmation or action.
+#' }
 #' @export
 
 scaffold_tests <- function() {

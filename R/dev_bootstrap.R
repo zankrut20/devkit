@@ -18,11 +18,20 @@
 #'       of the available tools should be attached to the current session using `library()`.
 #' }
 #'
+#' @section Warning:
+#' This function modifies files on disk or the global environment. Please ensure you have a backup or are using version control (e.g., Git) before execution.
+#'
+
 #' @return 
 #' Invisibly returns a named list with components: \code{status} ("done"),
 #' \code{initially_missing}, \code{available}, and \code{loaded} (character vectors).
 #'
 #' @importFrom utils installed.packages select.list install.packages
+#' @examples
+#' \dontrun{
+#' # This is an interactive or file-system modifying function
+#' # that requires manual user confirmation or action.
+#' }
 #' @export
 
 bootstrap_dev_env <- function() {

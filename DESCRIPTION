@@ -5,10 +5,13 @@ Version: 0.0.1
 Authors@R: 
   c(person(given = "Zankrut",
            family = "Goyani",
-           role = c("aut", "cre", "cph"),
+           role = c("aut"),
            email = "zankrut20@gmail.com"))
-Description: A collection of practical R scripts for package management, 
-    development workflows, debugging, data processing, and system utilities.
+Description: Provides a collection of practical R utilities for package management, 
+    development workflows, debugging, data processing, and system optimization. 
+    These utilities help R developers and data scientists automate release tasks, 
+    manage and scan dependencies, audit session states, optimize memory usage, 
+    and scramble sensitive PII.
 Encoding: UTF-8
 License: MIT + file LICENSE
 LazyData: true

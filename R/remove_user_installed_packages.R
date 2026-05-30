@@ -17,11 +17,19 @@
 #'   \item Iteratively removes each identified user package using `remove.packages()`.
 #' }
 #'
+#' @section Warning:
+#' This function modifies files on disk or the global environment. Please ensure you have a backup or are using version control (e.g., Git) before execution.
+#'
 #' @return 
 #' Invisibly returns a named list with components: \code{status} ("done" or
 #' "clean") and \code{packages_removed} (character vector).
 #'
 #' @importFrom utils installed.packages remove.packages
+#' @examples
+#' \dontrun{
+#' # This is an interactive or file-system modifying function
+#' # that requires manual user confirmation or action.
+#' }
 #' @export
 remove_user_installed_packages <- function() {
   # create a list of all installed packages

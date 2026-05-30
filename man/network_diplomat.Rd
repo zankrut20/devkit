@@ -37,3 +37,9 @@ The function implements a robust network request manager:
       marked as `NA` and the process continues to the next target.
 }
 }
+\examples{
+\dontrun{
+# This is an interactive or file-system modifying function
+# that requires manual user confirmation or action.
+}
+}

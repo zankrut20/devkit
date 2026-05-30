@@ -17,6 +17,9 @@
 #'   \item Upon successful completion of all items, the temporary checkpoint file is deleted.
 #' }
 #'
+#' @section Warning:
+#' This function modifies files on disk or the global environment. Please ensure you have a backup or are using version control (e.g., Git) before execution.
+#'
 #' @param items A vector or list of items to process.
 #' @param target_func The function to apply to each item.
 #' @param checkpoint_file Character. The file path for the state cache. Defaults to `"batch_checkpoint.rds"`.
@@ -25,6 +28,11 @@
 #' \code{status = "cancelled"} if aborted during resumption.
 #'
 #' @importFrom utils select.list
+#' @examples
+#' \dontrun{
+#' # This is an interactive or file-system modifying function
+#' # that requires manual user confirmation or action.
+#' }
 #' @export
 
 dispatch_checkpoints <- function(items, target_func, checkpoint_file = "batch_checkpoint.rds") {
