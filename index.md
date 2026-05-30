@@ -8,8 +8,7 @@ workflow.
 
 ## 🚀 Installation
 
-Install the released version of `devkit` from
-[CRAN](https://CRAN.R-project.org/package=devkit) with:
+Install the released version of `devkit` from CRAN with:
 
 ``` r
 
