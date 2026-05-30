@@ -12,8 +12,9 @@ hunt_zombies()
 
 ## Value
 
-Invisibly returns \`TRUE\` upon successful completion of the selected
-cleaning actions.
+Invisibly returns a named list with components: `status` ("done" or
+"cancelled"), `actions_taken` (character vector), `temp_flushed_mb`
+(numeric), and `devices_closed` (integer).
 
 ## Details
 

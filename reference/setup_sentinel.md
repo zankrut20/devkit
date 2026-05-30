@@ -12,7 +12,8 @@ setup_sentinel()
 
 ## Value
 
-Invisibly returns \`TRUE\` upon successful activation of the sentinel.
+Invisibly returns a named list with components: `status` ("done",
+"cancelled", or "error"), `log_file`, and `log_level`.
 
 ## Details
 

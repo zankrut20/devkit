@@ -11,8 +11,9 @@ sweep_memory()
 
 ## Value
 
-Invisibly returns \`NULL\`. The function operates primarily through side
-effects (modifying the global environment).
+Invisibly returns a named list with components: `status` ("done",
+"clean", or "cancelled"), `threshold_mb` (numeric), and
+`objects_removed` (character vector of removed object names).
 
 ## Details
 

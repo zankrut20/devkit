@@ -13,8 +13,8 @@ audit_script()
 
 ## Value
 
-Invisibly returns \`NULL\`. The function's primary purpose is to manage
-the R session state through side effects.
+Invisibly returns a named list with components: `status` ("done",
+"cancelled", or "error"), `script`, and `changes_found` (logical).
 
 ## Details
 

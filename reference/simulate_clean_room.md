@@ -13,8 +13,8 @@ simulate_clean_room()
 
 ## Value
 
-Invisibly returns \`TRUE\` if the script eventually runs successfully in
-the clean room, or \`FALSE\` if the simulation was aborted.
+Invisibly returns a named list with components: `status` ("done" or
+"cancelled"), `script`, `success` (logical), and `attempts` (integer).
 
 ## Details
 

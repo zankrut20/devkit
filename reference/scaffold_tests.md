@@ -12,8 +12,9 @@ scaffold_tests()
 
 ## Value
 
-Invisibly returns \`FALSE\` if the testing infrastructure is missing,
-otherwise returns \`NULL\` (implicitly) upon successful file creation.
+Invisibly returns a named list with components: `status` ("done",
+"cancelled", or "error"), `function_name`, `test_file`, and
+`output_type`.
 
 ## Details
 

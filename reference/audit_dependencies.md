@@ -13,8 +13,9 @@ audit_dependencies()
 
 ## Value
 
-Invisibly returns \`NULL\`. The function modifies the \`DESCRIPTION\`
-file in-place based on user interaction.
+Invisibly returns a named list with components: `status` ("done",
+"clean", or "error"), `ghost_deps`, `bloat_deps`, `misclassified`, and
+`description_modified` (logical).
 
 ## Details
 

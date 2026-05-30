@@ -12,8 +12,9 @@ setup_preflight()
 
 ## Value
 
-Invisibly returns \`NULL\` upon successful creation of the hook, or a
-message if the environment is not a Git repository.
+Invisibly returns a named list with components: `status` ("done",
+"cancelled", or "error"), `hook_path`, and `checks` (named logical
+list).
 
 ## Details
 

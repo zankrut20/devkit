@@ -12,7 +12,9 @@ dictate_dictionary()
 
 ## Value
 
-Invisibly returns \`TRUE\` upon completion.
+Invisibly returns a named list with components: `status` ("done",
+"cancelled", or "error"), `dataset`, `dimensions`, `output`, and
+`roxygen_block` (character vector).
 
 ## Details
 

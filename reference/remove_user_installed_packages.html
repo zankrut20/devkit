@@ -52,8 +52,8 @@ packages installed in specific system libraries (e.g., MRO).</p>
 
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Invisibly returns the result of the `sapply` call, which is a vector
-indicating the success or failure of each package removal.</p>
+    <p>Invisibly returns a named list with components: <code>status</code> ("done" or
+"clean") and <code>packages_removed</code> (character vector).</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>

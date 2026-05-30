@@ -49,8 +49,9 @@ prompts the user to remove them to free up system RAM.</p>
 
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Invisibly returns `NULL`. The function operates primarily through side effects
-(modifying the global environment).</p>
+    <p>Invisibly returns a named list with components: <code>status</code> ("done",
+"clean", or "cancelled"), <code>threshold_mb</code> (numeric), and
+<code>objects_removed</code> (character vector of removed object names).</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>

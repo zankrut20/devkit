@@ -12,7 +12,9 @@ manage_deprecation()
 
 ## Value
 
-Invisibly returns \`TRUE\` upon completion.
+Invisibly returns a named list with components: `status` ("done",
+"cancelled", or "error"), `old_function`, `new_function`,
+`wrapper_file`, and `replacements` (integer count).
 
 ## Details
 

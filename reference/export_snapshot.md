@@ -12,8 +12,9 @@ export_snapshot()
 
 ## Value
 
-Invisibly returns \`NULL\`. The primary output is the creation of a
-script file (e.g., \`requirements.R\`) in the current working directory.
+Invisibly returns a named list with components: `status` ("done" or
+"clean"), `packages` (character vector), `file` (output path), and
+`version_locked` (logical).
 
 ## Details
 

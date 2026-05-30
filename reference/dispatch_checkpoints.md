@@ -31,7 +31,8 @@ dispatch_checkpoints(
 
 ## Value
 
-A list of successfully processed results.
+A list of successfully processed results, or an invisible list with
+`status = "cancelled"` if aborted during resumption.
 
 ## Details
 

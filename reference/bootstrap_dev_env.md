@@ -12,7 +12,8 @@ bootstrap_dev_env()
 
 ## Value
 
-Invisibly returns \`TRUE\` upon completion.
+Invisibly returns a named list with components: `status` ("done"),
+`initially_missing`, `available`, and `loaded` (character vectors).
 
 ## Details
 

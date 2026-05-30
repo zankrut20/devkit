@@ -12,8 +12,9 @@ architect_vignette()
 
 ## Value
 
-Invisibly returns \`NULL\`. The primary output is the creation of a
-\`.Rmd\` file in the current working directory.
+Invisibly returns a named list with components: `status` ("done",
+"cancelled", or "error"), `file_path`, `package`, `title`, `template`,
+and `functions` (character vector).
 
 ## Details
 

@@ -12,7 +12,9 @@ scaffold_parallel()
 
 ## Value
 
-Invisibly returns \`TRUE\` upon successful generation of the scaffold.
+Invisibly returns a named list with components: `status` ("done",
+"cancelled", or "error"), `cores` (integer), `data_object`,
+`function_name`, and `saved_to` (file path or `NULL`).
 
 ## Details
 

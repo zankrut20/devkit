@@ -13,7 +13,9 @@ detect_masking()
 
 ## Value
 
-Invisibly returns \`TRUE\` if the process completes successfully.
+Invisibly returns a named list with components: `status` ("done" or
+"clean"), `conflicts` (named list), `resolutions` (named list), and
+`context` ("package" or "standalone").
 
 ## Details
 

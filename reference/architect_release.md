@@ -12,8 +12,10 @@ architect_release()
 
 ## Value
 
-Invisibly returns \`NULL\`. The function operates primarily through side
-effects (modifying files and printing messages).
+Invisibly returns a named list with components: `status` ("done",
+"cancelled", or "error"), `package`, `old_version`, `new_version`,
+`bump_type`, `description_updated` (logical), and `news_updated`
+(logical).
 
 ## Details
 

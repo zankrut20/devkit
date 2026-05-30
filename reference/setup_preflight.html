@@ -49,8 +49,8 @@ to select which safety checks should be enforced before allowing a commit.</p>
 
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Invisibly returns `NULL` upon successful creation of the hook, or a
-message if the environment is not a Git repository.</p>
+    <p>Invisibly returns a named list with components: <code>status</code> ("done",
+"cancelled", or "error"), <code>hook_path</code>, and <code>checks</code> (named logical list).</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>

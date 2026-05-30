@@ -49,8 +49,9 @@ the user for metadata, narrative structure, and target functions to highlight.</
 
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Invisibly returns `NULL`. The primary output is the creation of a `.Rmd` file
-in the current working directory.</p>
+    <p>Invisibly returns a named list with components: <code>status</code> ("done",
+"cancelled", or "error"), <code>file_path</code>, <code>package</code>, <code>title</code>,
+<code>template</code>, and <code>functions</code> (character vector).</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>

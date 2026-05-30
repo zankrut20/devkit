@@ -52,8 +52,9 @@ safe deletion to reclaim disk space.</p>
 
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Invisibly returns `NULL`. The function operates primarily through side effects
-(deleting files from the disk).</p>
+    <p>Invisibly returns a named list with components: <code>status</code> ("done",
+"clean", or "cancelled"), <code>dirs_found</code> (integer), and
+<code>space_freed_mb</code> (numeric).</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>

@@ -52,7 +52,9 @@ the user for targeted cleaning to reclaim system resources.</p>
 
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Invisibly returns `TRUE` upon successful completion of the selected cleaning actions.</p>
+    <p>Invisibly returns a named list with components: <code>status</code> ("done" or
+"cancelled"), <code>actions_taken</code> (character vector),
+<code>temp_flushed_mb</code> (numeric), and <code>devices_closed</code> (integer).</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>

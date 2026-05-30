@@ -12,8 +12,8 @@ remove_user_installed_packages()
 
 ## Value
 
-Invisibly returns the result of the \`sapply\` call, which is a vector
-indicating the success or failure of each package removal.
+Invisibly returns a named list with components: `status` ("done" or
+"clean") and `packages_removed` (character vector).
 
 ## Details
 

@@ -12,8 +12,9 @@ scan_dependencies()
 
 ## Value
 
-Invisibly returns \`TRUE\` upon successful completion of the scan and
-resolution process.
+Invisibly returns a named list with components: `status` ("done",
+"cancelled", "clean", or "error"), `script`, `external_packages`, and
+`unused_packages` (character vectors).
 
 ## Details
 

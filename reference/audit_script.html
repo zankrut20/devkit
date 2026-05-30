@@ -52,8 +52,8 @@ and revert any "hijacked" settings changed by the script.</p>
 
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Invisibly returns `NULL`. The function's primary purpose is to manage the
-R session state through side effects.</p>
+    <p>Invisibly returns a named list with components: <code>status</code> ("done",
+"cancelled", or "error"), <code>script</code>, and <code>changes_found</code> (logical).</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>

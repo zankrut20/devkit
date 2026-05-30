@@ -12,8 +12,9 @@ sweep_temp_cache()
 
 ## Value
 
-Invisibly returns \`NULL\`. The function operates primarily through side
-effects (deleting files from the disk).
+Invisibly returns a named list with components: `status` ("done",
+"clean", or "cancelled"), `dirs_found` (integer), and `space_freed_mb`
+(numeric).
 
 ## Details
 
