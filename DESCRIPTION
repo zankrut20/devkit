@@ -31,4 +31,5 @@ Suggests:
 VignetteBuilder: knitr
 RoxygenNote: 8.0.0
 Config/roxygen2/version: 8.0.0
-URL: https://zankrut20.github.io/devkit/
+URL: https://zankrut20.github.io/devkit/, https://github.com/zankrut20/devkit
+BugReports: https://github.com/zankrut20/devkit/issues

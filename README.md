@@ -3,17 +3,16 @@
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/zankrut20/devkit/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/zankrut20/devkit/actions/workflows/R-CMD-check.yaml)
 [![pkgdown](https://github.com/zankrut20/devkit/actions/workflows/pkgdown.yaml/badge.svg)](https://zankrut20.github.io/devkit/)
-[![CRAN status](https://www.r-pkg.org/badges/version/devkit)](https://CRAN.R-project.org/package=devkit)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![codecov](https://codecov.io/gh/zankrut20/devkit/branch/main/graph/badge.svg)](https://codecov.io/gh/zankrut20/devkit)
+[![codecov](https://codecov.io/gh/zankrut20/devkit/branch/main/graph/badge.svg)](https://app.codecov.io/gh/zankrut20/devkit)
 <!-- badges: end -->
 
 `devkit` is a professional, zero-dependency R development toolkit designed to streamline package management, environment setup, session auditing, and batch processing. It provides a suite of utilities to help developers maintain CRAN compliance and optimize their development workflow.
 
 ## 🚀 Installation
 
-Install the released version of `devkit` from [CRAN](https://CRAN.R-project.org/package=devkit) with:
+Install the released version of `devkit` from CRAN with:
 
 ```r
 install.packages("devkit")
