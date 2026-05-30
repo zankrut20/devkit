@@ -18,8 +18,8 @@
 #' }
 #'
 #' @return 
-#' Invisibly returns the result of the `sapply` call, which is a vector 
-#' indicating the success or failure of each package removal.
+#' Invisibly returns a named list with components: \code{status} ("done" or
+#' "clean") and \code{packages_removed} (character vector).
 #'
 #' @importFrom utils installed.packages remove.packages
 #' @export
@@ -41,7 +41,7 @@ remove_user_installed_packages <- function() {
   
   if (length(pkgs.to.remove) == 0) {
     message("No user-installed packages found to remove.")
-    return(invisible(NULL))
+    return(invisible(list(status = "clean", packages_removed = character(0))))
   }
   
   message(sprintf("Removing %d user-installed packages...", length(pkgs.to.remove)))
@@ -50,5 +50,5 @@ remove_user_installed_packages <- function() {
   res <- sapply(pkgs.to.remove, remove.packages, lib = path)
   
   message("User-installed packages removed successfully.")
-  return(invisible(res))
+  return(invisible(list(status = "done", packages_removed = as.character(pkgs.to.remove))))
 }

@@ -17,8 +17,9 @@
 #' }
 #'
 #' @return 
-#' Invisibly returns `NULL`. The function modifies the `DESCRIPTION` file in-place 
-#' based on user interaction.
+#' Invisibly returns a named list with components: \code{status} ("done",
+#' "clean", or "error"), \code{ghost_deps}, \code{bloat_deps},
+#' \code{misclassified}, and \code{description_modified} (logical).
 #'
 #' @importFrom utils select.list
 #' @export
@@ -28,7 +29,8 @@ audit_dependencies <- function() {
   
   # 1. Verify Package Infrastructure
   if (!file.exists("DESCRIPTION")) {
-    return(message("Error: DESCRIPTION file not found. Please run from the package root."))
+    message("Error: DESCRIPTION file not found. Please run from the package root.")
+    return(invisible(list(status = "error")))
   }
   
   # 2. Base R DCF Parsers and Modifiers
@@ -122,7 +124,8 @@ audit_dependencies <- function() {
   misclassified <- intersect(setdiff(current_imports, used_in_R), c(used_in_tests, used_in_vigs))
   
   if (length(ghost_deps) == 0 && length(bloat_deps) == 0 && length(misclassified) == 0) {
-    return(message("\nPerfect! Your DESCRIPTION file perfectly matches your source code."))
+    message("\nPerfect! Your DESCRIPTION file perfectly matches your source code.")
+    return(invisible(list(status = "clean")))
   }
   
   message("\n--- Dependency Discrepancies Found ---")
@@ -169,5 +172,11 @@ audit_dependencies <- function() {
     message("\n-> Audit complete. No changes were written to the DESCRIPTION file.")
   }
   
-  return(invisible(TRUE))
+  return(invisible(list(
+    status = "done",
+    ghost_deps = ghost_deps,
+    bloat_deps = bloat_deps,
+    misclassified = misclassified,
+    description_modified = desc_modified
+  )))
 }

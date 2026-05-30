@@ -24,7 +24,9 @@
 #' }
 #'
 #' @return 
-#' Invisibly returns `TRUE` upon successful generation of the scaffold.
+#' Invisibly returns a named list with components: \code{status} ("done",
+#' "cancelled", or "error"), \code{cores} (integer), \code{data_object},
+#' \code{function_name}, and \code{saved_to} (file path or \code{NULL}).
 #'
 #' @importFrom utils select.list
 #' @export
@@ -34,13 +36,15 @@ scaffold_parallel <- function() {
   
   # 1. Hardware Scan
   if (!requireNamespace("parallel", quietly = TRUE)) {
-    return(message("Error: The built-in 'parallel' package is missing."))
+    message("Error: The built-in 'parallel' package is missing.")
+    return(invisible(list(status = "error")))
   }
   
   total_cores <- parallel::detectCores()
   
   if (is.na(total_cores)) {
-    return(message("Error: Could not determine hardware specifications."))
+    message("Error: Could not determine hardware specifications.")
+    return(invisible(list(status = "error")))
   }
   
   message(sprintf("Hardware Scan Complete: %d CPU cores detected.", total_cores))
@@ -60,7 +64,10 @@ scaffold_parallel <- function() {
     title = core_prompt
   )
   
-  if (chosen_cores == "") return(message("Scaffolding cancelled."))
+  if (chosen_cores == "") {
+    message("Scaffolding cancelled.")
+    return(invisible(list(status = "cancelled")))
+  }
   
   # 3. Gather Target Data and Function
   data_obj <- readline(prompt = "Enter the name of the list or vector you are iterating over (e.g., 'massive_dataset'): ")
@@ -114,5 +121,11 @@ scaffold_parallel <- function() {
     message("Success: Snippet saved to 'parallel_scaffold.R' in your working directory.")
   }
   
-  return(invisible(TRUE))
+  return(invisible(list(
+    status = "done",
+    cores = as.integer(chosen_cores),
+    data_object = data_obj,
+    function_name = func_name,
+    saved_to = if (out_choice == "Save to parallel_scaffold.R") "parallel_scaffold.R" else NULL
+  )))
 }

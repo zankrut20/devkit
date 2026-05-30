@@ -14,8 +14,10 @@
 #' }
 #'
 #' @return 
-#' Invisibly returns `NULL`. The function operates primarily through side effects 
-#' (modifying files and printing messages).
+#' Invisibly returns a named list with components: \code{status} ("done",
+#' "cancelled", or "error"), \code{package}, \code{old_version},
+#' \code{new_version}, \code{bump_type}, \code{description_updated} (logical),
+#' and \code{news_updated} (logical).
 #'
 #' @importFrom utils select.list
 #' @export
@@ -25,7 +27,8 @@ architect_release <- function() {
   
   # 1. Verify Package Environment
   if (!file.exists("DESCRIPTION")) {
-    return(message("Error: DESCRIPTION file not found. Are you in the package root?"))
+    message("Error: DESCRIPTION file not found. Are you in the package root?")
+    return(invisible(list(status = "error")))
   }
   
   # 2. Parse Current Version
@@ -49,7 +52,10 @@ architect_release <- function() {
     title = "\nWhat type of version bump is this?"
   )
   
-  if (bump_type == "Cancel" || bump_type == "") return(message("Release preparation cancelled."))
+  if (bump_type == "Cancel" || bump_type == "") {
+    message("Release preparation cancelled.")
+    return(invisible(list(status = "cancelled")))
+  }
   
   # 4. Calculate New Version
   if (grepl("Patch", bump_type)) {
@@ -118,5 +124,13 @@ architect_release <- function() {
   }
   
   message(sprintf("\nRelease Candidate v%s is prepped and ready!", new_version))
-  return(invisible(TRUE))
+  return(invisible(list(
+    status = "done",
+    package = pkg_name,
+    old_version = current_version,
+    new_version = new_version,
+    bump_type = bump_type,
+    description_updated = (confirm_desc == "Yes"),
+    news_updated = (update_news == "Yes" && exists("news_bullets") && length(news_bullets) > 0)
+  )))
 }

@@ -17,8 +17,9 @@
 #' }
 #'
 #' @return 
-#' Invisibly returns `NULL`. The function operates primarily through side effects 
-#' (modifying the global environment).
+#' Invisibly returns a named list with components: \code{status} ("done",
+#' "clean", or "cancelled"), \code{threshold_mb} (numeric), and
+#' \code{objects_removed} (character vector of removed object names).
 #'
 #' @importFrom utils object.size select.list
 #' @export
@@ -33,7 +34,8 @@ sweep_memory <- function() {
 
   env_objs <- ls(envir = .GlobalEnv)
   if (length(env_objs) == 0) {
-    return(message("The global environment is empty."))
+    message("The global environment is empty.")
+    return(invisible(list(status = "clean", threshold_mb = threshold, objects_removed = character(0))))
   }
 
   # Calculate object sizes in MB
@@ -41,7 +43,8 @@ sweep_memory <- function() {
   large_objs <- obj_sizes[obj_sizes >= threshold]
 
   if (length(large_objs) == 0) {
-    return(message(sprintf("No objects found larger than %s MB.", threshold)))
+    message(sprintf("No objects found larger than %s MB.", threshold))
+    return(invisible(list(status = "clean", threshold_mb = threshold, objects_removed = character(0))))
   }
 
   # Format choices for the selection menu
@@ -60,7 +63,9 @@ sweep_memory <- function() {
     rm(list = actual_names, envir = .GlobalEnv)
     gc() # Force garbage collection to instantly free up RAM
     message(sprintf("Successfully removed %d objects and cleared memory.", length(actual_names)))
+    return(invisible(list(status = "done", threshold_mb = threshold, objects_removed = actual_names)))
   } else {
     message("Memory sweep cancelled.")
+    return(invisible(list(status = "cancelled", threshold_mb = threshold, objects_removed = character(0))))
   }
 }

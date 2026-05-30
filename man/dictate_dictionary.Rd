@@ -7,7 +7,9 @@
 dictate_dictionary()
 }
 \value{
-Invisibly returns `TRUE` upon completion.
+Invisibly returns a named list with components: \code{status} ("done",
+"cancelled", or "error"), \code{dataset}, \code{dimensions},
+\code{output}, and \code{roxygen_block} (character vector).
 }
 \description{
 Generates roxygen2 documentation for a data frame by interactively prompting 

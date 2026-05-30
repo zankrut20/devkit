@@ -7,8 +7,9 @@
 sweep_temp_cache()
 }
 \value{
-Invisibly returns `NULL`. The function operates primarily through side effects 
-(deleting files from the disk).
+Invisibly returns a named list with components: \code{status} ("done",
+"clean", or "cancelled"), \code{dirs_found} (integer), and
+\code{space_freed_mb} (numeric).
 }
 \description{
 Scans hidden R temporary directories for abandoned session data and caches, 

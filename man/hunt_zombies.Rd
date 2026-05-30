@@ -7,7 +7,9 @@
 hunt_zombies()
 }
 \value{
-Invisibly returns `TRUE` upon successful completion of the selected cleaning actions.
+Invisibly returns a named list with components: \code{status} ("done" or
+"cancelled"), \code{actions_taken} (character vector),
+\code{temp_flushed_mb} (numeric), and \code{devices_closed} (integer).
 }
 \description{
 Hunts down "invisible" memory hogs such as massive temporary files, 

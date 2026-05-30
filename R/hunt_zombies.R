@@ -18,7 +18,9 @@
 #' }
 #'
 #' @return 
-#' Invisibly returns `TRUE` upon successful completion of the selected cleaning actions.
+#' Invisibly returns a named list with components: \code{status} ("done" or
+#' "cancelled"), \code{actions_taken} (character vector),
+#' \code{temp_flushed_mb} (numeric), and \code{devices_closed} (integer).
 #'
 #' @importFrom utils select.list
 #' @importFrom grDevices dev.list graphics.off
@@ -58,7 +60,8 @@ hunt_zombies <- function() {
   )
   
   if (length(actions) == 0 || "Cancel" %in% actions) {
-    return(message("Zombie hunt cancelled."))
+    message("Zombie hunt cancelled.")
+    return(invisible(list(status = "cancelled")))
   }
   
   # 5. Execute Selected Actions
@@ -82,5 +85,10 @@ hunt_zombies <- function() {
   }
   
   message("\nSystem is clean.")
-  return(invisible(TRUE))
+  return(invisible(list(
+    status = "done",
+    actions_taken = setdiff(actions, "Cancel"),
+    temp_flushed_mb = if (any(grepl("Flush", actions))) tmp_size_mb else 0,
+    devices_closed = if (any(grepl("Graphical", actions))) dev_count else 0L
+  )))
 }

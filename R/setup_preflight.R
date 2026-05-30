@@ -17,8 +17,8 @@
 #' }
 #'
 #' @return 
-#' Invisibly returns `NULL` upon successful creation of the hook, or a 
-#' message if the environment is not a Git repository.
+#' Invisibly returns a named list with components: \code{status} ("done",
+#' "cancelled", or "error"), \code{hook_path}, and \code{checks} (named logical list).
 #'
 #' @importFrom utils select.list
 #' @export
@@ -28,7 +28,8 @@ setup_preflight <- function() {
   
   # 1. Verify Environment
   if (!dir.exists(".git")) {
-    return(message("Error: Not a Git repository. Please run this at the root of your project."))
+    message("Error: Not a Git repository. Please run this at the root of your project.")
+    return(invisible(list(status = "error")))
   }
   if (!dir.exists(".git/hooks")) {
     dir.create(".git/hooks", showWarnings = FALSE)
@@ -58,7 +59,8 @@ setup_preflight <- function() {
   )
   
   if (run_docs == "No" && run_tests == "No" && run_style == "No") {
-    return(message("All checks skipped. No pre-commit hook generated."))
+    message("All checks skipped. No pre-commit hook generated.")
+    return(invisible(list(status = "cancelled")))
   }
   
   # 3. Construct the Bash Hook Script
@@ -115,7 +117,10 @@ setup_preflight <- function() {
       choices = c("Yes", "No"),
       title = "A pre-commit hook already exists. Overwrite it?"
     )
-    if (overwrite == "No") return(message("Aborted. Existing hook was protected."))
+    if (overwrite == "No") {
+      message("Aborted. Existing hook was protected.")
+      return(invisible(list(status = "cancelled")))
+    }
   }
   
   writeLines(hook_lines, con = hook_path)
@@ -127,5 +132,9 @@ setup_preflight <- function() {
   message("\nSuccess! Your Pre-Flight Dispatcher is armed and active.")
   message("These checks will now run invisibly in the background every time you type `git commit`.")
   
-  return(invisible(TRUE))
+  return(invisible(list(
+    status = "done",
+    hook_path = hook_path,
+    checks = list(documentation = (run_docs == "Yes"), tests = (run_tests == "Yes"), styling = (run_style == "Yes"))
+  )))
 }

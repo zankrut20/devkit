@@ -7,8 +7,10 @@
 architect_release()
 }
 \value{
-Invisibly returns `NULL`. The function operates primarily through side effects 
-(modifying files and printing messages).
+Invisibly returns a named list with components: \code{status} ("done",
+"cancelled", or "error"), \code{package}, \code{old_version},
+\code{new_version}, \code{bump_type}, \code{description_updated} (logical),
+and \code{news_updated} (logical).
 }
 \description{
 Automates the process of preparing a package release by bumping the version 

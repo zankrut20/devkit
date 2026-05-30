@@ -7,8 +7,8 @@
 setup_preflight()
 }
 \value{
-Invisibly returns `NULL` upon successful creation of the hook, or a 
-message if the environment is not a Git repository.
+Invisibly returns a named list with components: \code{status} ("done",
+"cancelled", or "error"), \code{hook_path}, and \code{checks} (named logical list).
 }
 \description{
 Generates a custom Git pre-commit hook by interactively prompting the user 

@@ -141,5 +141,5 @@ test_that("scaffold_parallel returns invisible TRUE", {
   )
 
   result <- capture.output(res <- scaffold_parallel(), type = "output")
-  expect_true(res)
+  expect_equal(res$status, "done")
 })

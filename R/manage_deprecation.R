@@ -18,7 +18,9 @@
 #' }
 #'
 #' @return 
-#' Invisibly returns `TRUE` upon completion.
+#' Invisibly returns a named list with components: \code{status} ("done",
+#' "cancelled", or "error"), \code{old_function}, \code{new_function},
+#' \code{wrapper_file}, and \code{replacements} (integer count).
 #'
 #' @importFrom utils select.list
 #' @export
@@ -28,15 +30,22 @@ manage_deprecation <- function() {
   
   # 1. Verify Package Environment
   if (!dir.exists("R")) {
-    return(message("Error: 'R/' directory not found. Please run from the package root."))
+    message("Error: 'R/' directory not found. Please run from the package root.")
+    return(invisible(list(status = "error")))
   }
   
   # 2. Gather Function Names
   old_func <- readline(prompt = "Enter the name of the function to DEPRECATE: ")
-  if (trimws(old_func) == "") return(message("Aborted."))
+  if (trimws(old_func) == "") {
+    message("Aborted.")
+    return(invisible(list(status = "cancelled")))
+  }
   
   new_func <- readline(prompt = sprintf("Enter the name of the REPLACEMENT function for '%s': ", old_func))
-  if (trimws(new_func) == "") return(message("Aborted."))
+  if (trimws(new_func) == "") {
+    message("Aborted.")
+    return(invisible(list(status = "cancelled")))
+  }
   
   # 3. Scaffold the Deprecated Wrapper
   dep_file <- "R/deprecated.R"
@@ -63,6 +72,8 @@ manage_deprecation <- function() {
   cat(paste(wrapper_code, collapse = "\n"), "\n", file = dep_file, append = TRUE)
   message(sprintf("-> Scaffolded deprecated wrapper for `%s()` in %s", old_func, dep_file))
   
+  replacements_made <- 0L
+  
   # 4. Internal Refactoring (Tests & Vignettes)
   refactor <- select.list(
     choices = c("Yes", "No"),
@@ -81,7 +92,7 @@ manage_deprecation <- function() {
     
     if (length(files_to_scan) == 0) {
       message("No tests or vignettes found to scan.")
-      return(invisible(TRUE))
+      return(invisible(list(status = "done", old_function = old_func, new_function = new_func, wrapper_file = dep_file, replacements = 0L)))
     }
     
     message("\n--- Scanning for Internal Usage ---")
@@ -118,5 +129,11 @@ manage_deprecation <- function() {
   }
   
   message("\nLifecycle update finished. Remember to remove the original definition of the deprecated function from your R/ scripts!")
-  return(invisible(TRUE))
+  return(invisible(list(
+    status = "done",
+    old_function = old_func,
+    new_function = new_func,
+    wrapper_file = dep_file,
+    replacements = replacements_made
+  )))
 }

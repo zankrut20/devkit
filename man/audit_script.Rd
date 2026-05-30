@@ -7,8 +7,8 @@
 audit_script()
 }
 \value{
-Invisibly returns `NULL`. The function's primary purpose is to manage the 
-R session state through side effects.
+Invisibly returns a named list with components: \code{status} ("done",
+"cancelled", or "error"), \code{script}, and \code{changes_found} (logical).
 }
 \description{
 Takes a snapshot of global options, graphical parameters, and the working directory, 

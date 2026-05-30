@@ -7,7 +7,9 @@
 manage_deprecation()
 }
 \value{
-Invisibly returns `TRUE` upon completion.
+Invisibly returns a named list with components: \code{status} ("done",
+"cancelled", or "error"), \code{old_function}, \code{new_function},
+\code{wrapper_file}, and \code{replacements} (integer count).
 }
 \description{
 Scaffolds CRAN-compliant deprecation wrappers and interactively 

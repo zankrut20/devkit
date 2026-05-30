@@ -20,7 +20,9 @@
 #' }
 #'
 #' @return 
-#' Invisibly returns `TRUE` upon completion.
+#' Invisibly returns a named list with components: \code{status} ("done",
+#' "cancelled", or "error"), \code{dataset}, \code{dimensions},
+#' \code{output}, and \code{roxygen_block} (character vector).
 #'
 #' @importFrom utils select.list
 #' @export
@@ -30,7 +32,8 @@ dictate_dictionary <- function() {
   df_names <- .list_global_dataframes()
   
   if (length(df_names) == 0) {
-    return(message("No data frames found in the global environment."))
+    message("No data frames found in the global environment.")
+    return(invisible(list(status = "error")))
   }
   
   # Trigger interactive prompt to select the dataset
@@ -39,7 +42,10 @@ dictate_dictionary <- function() {
     title = "Select a dataset to document:"
   )
   
-  if (target_df == "") return(message("Documentation cancelled."))
+  if (target_df == "") {
+    message("Documentation cancelled.")
+    return(invisible(list(status = "cancelled")))
+  }
   
   data <- get(target_df, envir = .GlobalEnv)
   cols <- names(data)
@@ -98,5 +104,11 @@ dictate_dictionary <- function() {
     message("Success: Documentation appended to R/data.R")
   }
   
-  return(invisible(TRUE))
+  return(invisible(list(
+    status = "done",
+    dataset = target_df,
+    dimensions = c(rows = n_rows, cols = n_cols),
+    output = out_choice,
+    roxygen_block = roxy_lines
+  )))
 }

@@ -21,7 +21,8 @@
 #' }
 #'
 #' @return 
-#' Invisibly returns `TRUE` upon successful activation of the sentinel.
+#' Invisibly returns a named list with components: \code{status} ("done",
+#' "cancelled", or "error"), \code{log_file}, and \code{log_level}.
 #'
 #' @importFrom utils select.list
 #' @export
@@ -31,7 +32,8 @@ setup_sentinel <- function() {
   
   # 1. Verify R Version capability
   if (getRversion() < "4.0.0") {
-    return(message("Error: Session Sentinel requires R 4.0.0 or higher for global calling handlers."))
+    message("Error: Session Sentinel requires R 4.0.0 or higher for global calling handlers.")
+    return(invisible(list(status = "error")))
   }
   
   # 2. Ask for Logging Level
@@ -41,7 +43,8 @@ setup_sentinel <- function() {
   )
   
   if (log_level == "Cancel" || log_level == "") {
-    return(message("Sentinel setup cancelled."))
+    message("Sentinel setup cancelled.")
+    return(invisible(list(status = "cancelled")))
   }
   
   # 3. Ask for Log Filename dynamically
@@ -86,5 +89,9 @@ setup_sentinel <- function() {
   }
   
   message("You can now safely run your batch processes.")
-  return(invisible(TRUE))
+  return(invisible(list(
+    status = "done",
+    log_file = log_file,
+    log_level = log_level
+  )))
 }

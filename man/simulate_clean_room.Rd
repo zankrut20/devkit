@@ -7,8 +7,8 @@
 simulate_clean_room()
 }
 \value{
-Invisibly returns `TRUE` if the script eventually runs successfully in 
-the clean room, or `FALSE` if the simulation was aborted.
+Invisibly returns a named list with components: \code{status} ("done" or
+"cancelled"), \code{script}, \code{success} (logical), and \code{attempts} (integer).
 }
 \description{
 Runs a specified R script in a background vanilla R session to verify 

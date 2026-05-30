@@ -47,7 +47,7 @@ test_that("simulate_clean_room reports success for clean script", {
   )
 
   result <- simulate_clean_room()
-  expect_true(result)
+  expect_equal(result$status, "done")
 })
 
 test_that("simulate_clean_room reports failure and user aborts", {
@@ -75,7 +75,7 @@ test_that("simulate_clean_room reports failure and user aborts", {
   )
 
   result <- simulate_clean_room()
-  expect_false(result)
+  expect_equal(result$status, "cancelled")
 })
 
 test_that("simulate_clean_room injects library call and reruns", {
@@ -115,7 +115,7 @@ test_that("simulate_clean_room injects library call and reruns", {
   )
 
   result <- simulate_clean_room()
-  expect_true(result)
+  expect_equal(result$status, "done")
   content <- readLines("needs_lib.R")
   expect_true(any(grepl("library(ggplot2)", content, fixed = TRUE)))
 })
@@ -214,5 +214,5 @@ test_that("simulate_clean_room handles error lines without Error keyword", {
   )
 
   result <- simulate_clean_room()
-  expect_false(result)
+  expect_equal(result$status, "cancelled")
 })

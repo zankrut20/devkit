@@ -19,7 +19,8 @@
 #' }
 #'
 #' @return 
-#' Invisibly returns `TRUE` upon completion.
+#' Invisibly returns a named list with components: \code{status} ("done"),
+#' \code{initially_missing}, \code{available}, and \code{loaded} (character vectors).
 #'
 #' @importFrom utils installed.packages select.list install.packages
 #' @export
@@ -78,5 +79,10 @@ bootstrap_dev_env <- function() {
     message("No development tools attached.")
   }
   
-  return(invisible(TRUE))
+  return(invisible(list(
+    status = "done",
+    initially_missing = missing_tools,
+    available = available_tools,
+    loaded = to_load
+  )))
 }

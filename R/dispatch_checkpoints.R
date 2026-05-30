@@ -21,7 +21,8 @@
 #' @param target_func The function to apply to each item.
 #' @param checkpoint_file Character. The file path for the state cache. Defaults to `"batch_checkpoint.rds"`.
 #'
-#' @return A list of successfully processed results.
+#' @return A list of successfully processed results, or an invisible list with 
+#' \code{status = "cancelled"} if aborted during resumption.
 #'
 #' @importFrom utils select.list
 #' @export
@@ -53,7 +54,8 @@ dispatch_checkpoints <- function(items, target_func, checkpoint_file = "batch_ch
     )
     
     if (action == "Abort completely" || action == "") {
-      return(message("Dispatcher aborted."))
+      message("Dispatcher aborted.")
+      return(invisible(list(status = "cancelled")))
     } else if (grepl("Resume", action)) {
       start_index <- crashed_at
       results <- cached_state$results

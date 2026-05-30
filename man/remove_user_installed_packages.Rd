@@ -7,8 +7,8 @@
 remove_user_installed_packages()
 }
 \value{
-Invisibly returns the result of the `sapply` call, which is a vector 
-indicating the success or failure of each package removal.
+Invisibly returns a named list with components: \code{status} ("done" or
+"clean") and \code{packages_removed} (character vector).
 }
 \description{
 Identifies and removes all user-installed R packages from the system, 

@@ -16,8 +16,9 @@
 #' }
 #'
 #' @return 
-#' Invisibly returns `NULL`. The primary output is the creation of a 
-#' script file (e.g., `requirements.R`) in the current working directory.
+#' Invisibly returns a named list with components: \code{status} ("done" or
+#' "clean"), \code{packages} (character vector), \code{file} (output path),
+#' and \code{version_locked} (logical).
 #'
 #' @importFrom utils packageVersion
 #' @export
@@ -38,7 +39,8 @@ export_snapshot <- function() {
   target_pkgs <- setdiff(pkg_names, base_pkgs)
   
   if (length(target_pkgs) == 0) {
-    return(message("No external packages currently attached. Nothing to export."))
+    message("No external packages currently attached. Nothing to export.")
+    return(invisible(list(status = "clean")))
   }
 
   script_lines <- c("# Auto-generated R Environment Snapshot", "")
@@ -60,4 +62,5 @@ export_snapshot <- function() {
 
   writeLines(script_lines, con = filename)
   message(sprintf("Snapshot of %d packages saved to '%s'", length(target_pkgs), filename))
+  return(invisible(list(status = "done", packages = target_pkgs, file = filename, version_locked = include_versions)))
 }

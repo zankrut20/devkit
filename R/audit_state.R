@@ -17,8 +17,8 @@
 #' }
 #'
 #' @return 
-#' Invisibly returns `NULL`. The function's primary purpose is to manage the 
-#' R session state through side effects.
+#' Invisibly returns a named list with components: \code{status} ("done",
+#' "cancelled", or "error"), \code{script}, and \code{changes_found} (logical).
 #'
 #' @importFrom utils select.list
 #' @importFrom graphics par
@@ -30,10 +30,16 @@ audit_script <- function() {
   
   # 1. Ask for the target script
   scripts <- list.files(pattern = "\\.R$", ignore.case = TRUE)
-  if (length(scripts) == 0) return(message("Error: No R scripts found in the current directory."))
+  if (length(scripts) == 0) {
+    message("Error: No R scripts found in the current directory.")
+    return(invisible(list(status = "error")))
+  }
   
   target_script <- select.list(scripts, title = "Select a script to audit:")
-  if (target_script == "") return(message("Audit cancelled."))
+  if (target_script == "") {
+    message("Audit cancelled.")
+    return(invisible(list(status = "cancelled")))
+  }
   
   message(sprintf("\n--- Taking Pre-Execution Snapshot for '%s' ---", target_script))
   
@@ -124,5 +130,5 @@ audit_script <- function() {
     message("\nAudit Complete: Selected state restorations have been applied to your session.")
   }
   
-  return(invisible(TRUE))
+  return(invisible(list(status = "done", script = target_script, changes_found = changes_found)))
 }

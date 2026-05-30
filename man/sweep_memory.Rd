@@ -7,8 +7,9 @@
 sweep_memory()
 }
 \value{
-Invisibly returns `NULL`. The function operates primarily through side effects 
-(modifying the global environment).
+Invisibly returns a named list with components: \code{status} ("done",
+"clean", or "cancelled"), \code{threshold_mb} (numeric), and
+\code{objects_removed} (character vector of removed object names).
 }
 \description{
 Scans the global environment for memory-intensive objects and interactively 

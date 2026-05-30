@@ -22,8 +22,9 @@
 #' }
 #'
 #' @return 
-#' Invisibly returns `NULL`. The function operates primarily through side effects 
-#' (deleting files from the disk).
+#' Invisibly returns a named list with components: \code{status} ("done",
+#' "clean", or "cancelled"), \code{dirs_found} (integer), and
+#' \code{space_freed_mb} (numeric).
 #'
 #' @importFrom utils select.list
 #' @export
@@ -41,7 +42,8 @@ sweep_temp_cache <- function() {
   r_tmp_dirs <- all_rtmp_dirs[grepl("Rtmp", basename(all_rtmp_dirs))]
   
   if (length(r_tmp_dirs) == 0) {
-    return(message("No R temporary directories found. Your system is clean."))
+    message("No R temporary directories found. Your system is clean.")
+    return(invisible(list(status = "clean", dirs_found = 0, space_freed_mb = 0)))
   }
   
   # 3. Initialize categorization lists
@@ -99,7 +101,8 @@ sweep_temp_cache <- function() {
   }
   
   if (length(menu_choices) == 0) {
-    return(message("Temporary directories exist, but they are practically empty. No sweeping needed."))
+    message("Temporary directories exist, but they are practically empty. No sweeping needed.")
+    return(invisible(list(status = "clean", dirs_found = length(r_tmp_dirs), space_freed_mb = 0)))
   }
   
   menu_choices <- c(menu_choices, "Cancel")
@@ -113,7 +116,8 @@ sweep_temp_cache <- function() {
   )
   
   if (length(to_flush) == 0 || "Cancel" %in% to_flush) {
-    return(message("Janitor sweep cancelled. No files were deleted."))
+    message("Janitor sweep cancelled. No files were deleted.")
+    return(invisible(list(status = "cancelled", dirs_found = length(r_tmp_dirs), space_freed_mb = 0)))
   }
   
   # 7. Execute Deletion
@@ -142,5 +146,5 @@ sweep_temp_cache <- function() {
   }
   
   message(sprintf("\nSweep complete. Reclaimed %.2f MB of hidden storage.", total_freed))
-  return(invisible(TRUE))
+  return(invisible(list(status = "done", dirs_found = length(r_tmp_dirs), space_freed_mb = total_freed)))
 }

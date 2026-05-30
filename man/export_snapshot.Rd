@@ -7,8 +7,9 @@
 export_snapshot()
 }
 \value{
-Invisibly returns `NULL`. The primary output is the creation of a 
-script file (e.g., `requirements.R`) in the current working directory.
+Invisibly returns a named list with components: \code{status} ("done" or
+"clean"), \code{packages} (character vector), \code{file} (output path),
+and \code{version_locked} (logical).
 }
 \description{
 Generates a reproducible installation script for all currently attached 

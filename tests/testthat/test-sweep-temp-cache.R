@@ -33,6 +33,7 @@ test_that("sweep_temp_cache returns invisible NULL on cancel", {
   )
 
   result <- sweep_temp_cache()
-  # Returns either NULL (from message()) or TRUE
-  expect_true(is.null(result) || isTRUE(result))
+  # In R CMD check, the environment may be perfectly clean, returning "clean"
+  # In devtools::test(), the interactive session has temp files, returning "cancelled"
+  expect_true(result$status %in% c("cancelled", "clean"))
 })

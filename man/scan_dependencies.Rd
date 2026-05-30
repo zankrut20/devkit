@@ -7,7 +7,9 @@
 scan_dependencies()
 }
 \value{
-Invisibly returns `TRUE` upon successful completion of the scan and resolution process.
+Invisibly returns a named list with components: \code{status} ("done",
+"cancelled", "clean", or "error"), \code{script}, \code{external_packages},
+and \code{unused_packages} (character vectors).
 }
 \description{
 Scans a specified R script for function calls, cross-references them 

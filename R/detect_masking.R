@@ -21,7 +21,9 @@
 #' }
 #'
 #' @return 
-#' Invisibly returns `TRUE` if the process completes successfully.
+#' Invisibly returns a named list with components: \code{status} ("done" or
+#' "clean"), \code{conflicts} (named list), \code{resolutions} (named list),
+#' and \code{context} ("package" or "standalone").
 #'
 #' @importFrom utils select.list
 #' @export
@@ -42,7 +44,8 @@ detect_masking <- function() {
   }
   
   if (length(pkg_confs) == 0) {
-    return(message("No cross-package function masking detected. Your namespace is clean."))
+    message("No cross-package function masking detected. Your namespace is clean.")
+    return(invisible(list(status = "clean", conflicts = list(), resolutions = list())))
   }
   
   message(sprintf("Detected %d masked functions.", length(pkg_confs)))
@@ -64,7 +67,8 @@ detect_masking <- function() {
   }
   
   if (length(resolutions) == 0) {
-    return(message("No conflict resolutions selected."))
+    message("No conflict resolutions selected.")
+    return(invisible(list(status = "done", conflicts = pkg_confs, resolutions = list())))
   }
   
   # 3. Determine Context: Package Development vs. Standalone Script
@@ -113,5 +117,10 @@ detect_masking <- function() {
     }
   }
   
-  return(invisible(TRUE))
+  return(invisible(list(
+    status = "done",
+    conflicts = pkg_confs,
+    resolutions = resolutions,
+    context = ifelse(is_pkg_dev, "package", "standalone")
+  )))
 }

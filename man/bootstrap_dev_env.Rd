@@ -7,7 +7,8 @@
 bootstrap_dev_env()
 }
 \value{
-Invisibly returns `TRUE` upon completion.
+Invisibly returns a named list with components: \code{status} ("done"),
+\code{initially_missing}, \code{available}, and \code{loaded} (character vectors).
 }
 \description{
 Scans the system for core R package development tools, prompts the user to 

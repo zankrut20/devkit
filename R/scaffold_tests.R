@@ -22,8 +22,9 @@
 #' }
 #'
 #' @return 
-#' Invisibly returns `FALSE` if the testing infrastructure is missing, 
-#' otherwise returns `NULL` (implicitly) upon successful file creation.
+#' Invisibly returns a named list with components: \code{status} ("done",
+#' "cancelled", or "error"), \code{function_name}, \code{test_file},
+#' and \code{output_type}.
 #'
 #' @importFrom utils select.list
 #' @export
@@ -35,19 +36,25 @@ scaffold_tests <- function() {
   if (!dir.exists("tests/testthat")) {
     message("Error: 'tests/testthat' directory not found.")
     message("Hint: Run `usethis::use_testthat()` first to set up your testing infrastructure.")
-    return(invisible(FALSE))
+    return(invisible(list(status = "error")))
   }
   
   # 2. Target Function Input
   target_func <- readline(prompt = "Enter the exact name of the function you want to test: ")
-  if (trimws(target_func) == "") return(message("Scaffolding cancelled."))
+  if (trimws(target_func) == "") {
+    message("Scaffolding cancelled.")
+    return(invisible(list(status = "cancelled")))
+  }
   
   file_name <- sprintf("test-%s.R", target_func)
   file_path <- file.path("tests", "testthat", file_name)
   
   if (file.exists(file_path)) {
     overwrite <- select.list(c("Yes", "No"), title = sprintf("'%s' already exists. Overwrite?", file_name))
-    if (overwrite != "Yes") return(message("Aborted to protect existing tests."))
+    if (overwrite != "Yes") {
+      message("Aborted to protect existing tests.")
+      return(invisible(list(status = "cancelled")))
+    }
   }
   
   # 3. Interactive Test Design
@@ -123,5 +130,5 @@ scaffold_tests <- function() {
   message(sprintf("\nSuccess! Scaffolding complete."))
   message(sprintf("-> Open '%s' to fill in your mock data and run your tests.", file_path))
   
-  return(invisible(TRUE))
+  return(invisible(list(status = "done", function_name = target_func, test_file = file_path, output_type = out_type)))
 }

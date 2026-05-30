@@ -7,7 +7,9 @@
 scaffold_parallel()
 }
 \value{
-Invisibly returns `TRUE` upon successful generation of the scaffold.
+Invisibly returns a named list with components: \code{status} ("done",
+"cancelled", or "error"), \code{cores} (integer), \code{data_object},
+\code{function_name}, and \code{saved_to} (file path or \code{NULL}).
 }
 \description{
 Scans local hardware to determine available CPU cores and generates 

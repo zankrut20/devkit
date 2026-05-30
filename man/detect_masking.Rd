@@ -7,7 +7,9 @@
 detect_masking()
 }
 \value{
-Invisibly returns `TRUE` if the process completes successfully.
+Invisibly returns a named list with components: \code{status} ("done" or
+"clean"), \code{conflicts} (named list), \code{resolutions} (named list),
+and \code{context} ("package" or "standalone").
 }
 \description{
 Scans for namespace conflicts among attached packages and interactively 

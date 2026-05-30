@@ -18,7 +18,8 @@ dispatch_checkpoints(
 \item{checkpoint_file}{Character. The file path for the state cache. Defaults to `"batch_checkpoint.rds"`.}
 }
 \value{
-A list of successfully processed results.
+A list of successfully processed results, or an invisible list with 
+\code{status = "cancelled"} if aborted during resumption.
 }
 \description{
 A crash-resilient wrapper for batch processing that silently caches progress 

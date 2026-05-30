@@ -7,8 +7,9 @@
 architect_vignette()
 }
 \value{
-Invisibly returns `NULL`. The primary output is the creation of a `.Rmd` file 
-in the current working directory.
+Invisibly returns a named list with components: \code{status} ("done",
+"cancelled", or "error"), \code{file_path}, \code{package}, \code{title},
+\code{template}, and \code{functions} (character vector).
 }
 \description{
 Scaffolds a CRAN-compliant RMarkdown vignette by interactively prompting 

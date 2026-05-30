@@ -37,7 +37,7 @@ test_that("setup_sentinel creates log file with All Output mode", {
   expect_true(file.exists("test_log.txt"))
   content <- readLines("test_log.txt")
   expect_true(any(grepl("Session Log Started", content)))
-  expect_true(result)
+  expect_equal(result$status, "done")
 })
 
 test_that("setup_sentinel creates log file with Errors Only mode", {
@@ -57,7 +57,7 @@ test_that("setup_sentinel creates log file with Errors Only mode", {
 
   result <- setup_sentinel()
   expect_true(file.exists("error_log.txt"))
-  expect_true(result)
+  expect_equal(result$status, "done")
 })
 
 test_that("setup_sentinel uses default filename when empty", {
@@ -78,7 +78,7 @@ test_that("setup_sentinel uses default filename when empty", {
   result <- setup_sentinel()
   log_files <- list.files(tmp, pattern = "^session_log_")
   expect_true(length(log_files) >= 1)
-  expect_true(result)
+  expect_equal(result$status, "done")
 })
 
 test_that("setup_sentinel returns invisible TRUE on success", {
@@ -97,7 +97,7 @@ test_that("setup_sentinel returns invisible TRUE on success", {
   )
 
   result <- setup_sentinel()
-  expect_true(result)
+  expect_equal(result$status, "done")
 })
 
 test_that("setup_sentinel writes header with timestamp", {

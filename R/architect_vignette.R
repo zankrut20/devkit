@@ -15,8 +15,9 @@
 #' }
 #'
 #' @return 
-#' Invisibly returns `NULL`. The primary output is the creation of a `.Rmd` file 
-#' in the current working directory.
+#' Invisibly returns a named list with components: \code{status} ("done",
+#' "cancelled", or "error"), \code{file_path}, \code{package}, \code{title},
+#' \code{template}, and \code{functions} (character vector).
 #'
 #' @importFrom utils select.list
 #' @export
@@ -26,7 +27,10 @@ architect_vignette <- function() {
   
   # 1. Gather Metadata via Dynamic Prompts
   pkg_name <- readline(prompt = "Enter your package name: ")
-  if (trimws(pkg_name) == "") return(message("Package name is required. Aborting."))
+  if (trimws(pkg_name) == "") {
+    message("Package name is required. Aborting.")
+    return(invisible(list(status = "error")))
+  }
   
   vig_title <- readline(prompt = "Enter the Vignette Title (e.g., 'Getting Started'): ")
   if (trimws(vig_title) == "") vig_title <- "Package Vignette"
@@ -40,7 +44,10 @@ architect_vignette <- function() {
     choices = c("Quick Start Guide", "Deep Dive / Advanced Usage", "Case Study / Workflow"),
     title = "Select the structural template for this vignette:"
   )
-  if (vig_type == "") return(message("Scaffolding cancelled."))
+  if (vig_type == "") {
+    message("Scaffolding cancelled.")
+    return(invisible(list(status = "cancelled")))
+  }
   
   # 3. Gather Target Functions
   funcs_input <- readline(prompt = "List the core functions to highlight (comma-separated, e.g., 'sweep_memory, audit_state'): ")
@@ -133,12 +140,22 @@ architect_vignette <- function() {
   
   if (file.exists(file_path)) {
     overwrite <- select.list(c("Yes", "No"), title = sprintf("'%s' already exists. Overwrite?", file_name))
-    if (overwrite != "Yes") return(message("Scaffolding aborted to protect existing file."))
+    if (overwrite != "Yes") {
+      message("Scaffolding aborted to protect existing file.")
+      return(invisible(list(status = "cancelled")))
+    }
   }
   
   # 8. Write the final file
   writeLines(c(yaml_block, body_block), con = file_path)
   message(sprintf("\nSuccess! Scaffolding complete. Open 'vignettes/%s' to start writing.", file_name))
   
-  return(invisible(TRUE))
+  return(invisible(list(
+    status = "done",
+    file_path = file_path,
+    package = pkg_name,
+    title = vig_title,
+    template = vig_type,
+    functions = funcs_list
+  )))
 }

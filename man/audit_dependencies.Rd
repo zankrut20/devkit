@@ -7,8 +7,9 @@
 audit_dependencies()
 }
 \value{
-Invisibly returns `NULL`. The function modifies the `DESCRIPTION` file in-place 
-based on user interaction.
+Invisibly returns a named list with components: \code{status} ("done",
+"clean", or "error"), \code{ghost_deps}, \code{bloat_deps},
+\code{misclassified}, and \code{description_modified} (logical).
 }
 \description{
 Scans package source code for external package calls and cross-references 

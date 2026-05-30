@@ -7,7 +7,8 @@
 setup_sentinel()
 }
 \value{
-Invisibly returns `TRUE` upon successful activation of the sentinel.
+Invisibly returns a named list with components: \code{status} ("done",
+"cancelled", or "error"), \code{log_file}, and \code{log_level}.
 }
 \description{
 Interactively configures dual-logging for the current R session, 

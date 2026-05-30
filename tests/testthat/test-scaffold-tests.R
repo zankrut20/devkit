@@ -6,7 +6,7 @@ test_that("scaffold_tests returns FALSE when tests/testthat missing", {
   on.exit(setwd(old_wd), add = TRUE)
 
   result <- scaffold_tests()
-  expect_false(result)
+  expect_equal(result$status, "error")
 })
 
 test_that("scaffold_tests cancels when function name is empty", {

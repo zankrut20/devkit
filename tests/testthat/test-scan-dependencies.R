@@ -147,5 +147,5 @@ test_that("scan_dependencies returns invisible TRUE on completion", {
   )
 
   result <- scan_dependencies()
-  expect_true(result)
+  expect_equal(result$status, "done")
 })

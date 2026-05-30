@@ -17,7 +17,9 @@
 #' }
 #'
 #' @return 
-#' Invisibly returns `TRUE` upon successful completion of the scan and resolution process.
+#' Invisibly returns a named list with components: \code{status} ("done",
+#' "cancelled", "clean", or "error"), \code{script}, \code{external_packages},
+#' and \code{unused_packages} (character vectors).
 #'
 #' @importFrom utils select.list
 #' @export
@@ -27,10 +29,16 @@ scan_dependencies <- function() {
   
   # 1. Ask user for the target script
   scripts <- list.files(pattern = "\\.R$|\\.Rmd$", ignore.case = TRUE)
-  if (length(scripts) == 0) return(message("No R scripts found in the current directory."))
+  if (length(scripts) == 0) {
+    message("No R scripts found in the current directory.")
+    return(invisible(list(status = "error")))
+  }
   
   target_script <- select.list(scripts, title = "Select the script to analyze:")
-  if (target_script == "") return(message("Scanner cancelled."))
+  if (target_script == "") {
+    message("Scanner cancelled.")
+    return(invisible(list(status = "cancelled")))
+  }
   
   # Note: A robust implementation would use a parser like NCmisc::list.functions.in.file()
   # For this raw script, we simulate finding attached but unused packages.
@@ -38,13 +46,19 @@ scan_dependencies <- function() {
   base_pkgs <- .base_pkgs
   external_pkgs <- setdiff(attached_pkgs, base_pkgs)
   
-  if (length(external_pkgs) == 0) return(message("No external packages attached to scan."))
+  if (length(external_pkgs) == 0) {
+    message("No external packages attached to scan.")
+    return(invisible(list(status = "clean", script = target_script, external_packages = character(0), unused_packages = character(0))))
+  }
   
   # Simulate finding unused packages (In reality, cross-reference parsed functions here)
   # Let's assume the scanner identified these as loaded but unused:
   unused_pkgs <- sample(external_pkgs, min(length(external_pkgs), 2)) 
   
-  if (length(unused_pkgs) == 0) return(message("All loaded packages are currently being used. Great job!"))
+  if (length(unused_pkgs) == 0) {
+    message("All loaded packages are currently being used. Great job!")
+    return(invisible(list(status = "clean", script = target_script, external_packages = external_pkgs, unused_packages = character(0))))
+  }
   
   message(sprintf("\nDetected %d unused packages loaded in memory.", length(unused_pkgs)))
   
@@ -107,5 +121,10 @@ scan_dependencies <- function() {
     }
   }
   
-  return(invisible(TRUE))
+  return(invisible(list(
+    status = "done",
+    script = target_script,
+    external_packages = external_pkgs,
+    unused_packages = unused_pkgs
+  )))
 }

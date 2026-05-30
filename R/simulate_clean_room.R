@@ -25,8 +25,8 @@
 #' }
 #'
 #' @return 
-#' Invisibly returns `TRUE` if the script eventually runs successfully in 
-#' the clean room, or `FALSE` if the simulation was aborted.
+#' Invisibly returns a named list with components: \code{status} ("done" or
+#' "cancelled"), \code{script}, \code{success} (logical), and \code{attempts} (integer).
 #'
 #' @importFrom utils select.list tail
 #' @export
@@ -36,10 +36,16 @@ simulate_clean_room <- function() {
   
   # 1. Select the target script
   scripts <- list.files(pattern = "\\.R$", ignore.case = TRUE)
-  if (length(scripts) == 0) return(message("Error: No R scripts found in the current directory."))
+  if (length(scripts) == 0) {
+    message("Error: No R scripts found in the current directory.")
+    return(invisible(list(status = "error")))
+  }
   
   target_script <- select.list(scripts, title = "Select a script to stress-test:")
-  if (target_script == "") return(message("Simulation cancelled."))
+  if (target_script == "") {
+    message("Simulation cancelled.")
+    return(invisible(list(status = "cancelled")))
+  }
   
   testing <- TRUE
   attempt <- 1
@@ -93,7 +99,7 @@ simulate_clean_room <- function() {
       
       if (fix_type == "Abort Simulation" || fix_type == "") {
         message("Simulation aborted. File left in its current state.")
-        return(invisible(FALSE))
+        return(invisible(list(status = "cancelled", script = target_script, success = FALSE, attempts = attempt)))
       }
       
       snippet_to_inject <- ""
@@ -140,5 +146,5 @@ simulate_clean_room <- function() {
     }
   }
   
-  return(invisible(TRUE))
+  return(invisible(list(status = "done", script = target_script, success = TRUE, attempts = attempt)))
 }

@@ -7,8 +7,9 @@
 scaffold_tests()
 }
 \value{
-Invisibly returns `FALSE` if the testing infrastructure is missing, 
-otherwise returns `NULL` (implicitly) upon successful file creation.
+Invisibly returns a named list with components: \code{status} ("done",
+"cancelled", or "error"), \code{function_name}, \code{test_file},
+and \code{output_type}.
 }
 \description{
 Scaffolds CRAN-compliant `testthat` boilerplate for a specific function 
