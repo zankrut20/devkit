@@ -21,18 +21,33 @@ name, execution time in seconds, and the execution status
 
 The function performs the following workflow:
 
-1.  Verifies that the current directory is a Git repository.
+- Verifies that the current directory is a Git repository.
 
-2.  Extracts available branches and allows the user to select specific
-    ones or benchmark all.
+- Extracts available branches and allows the user to select specific
+  ones or benchmark all.
 
-3.  Prompts for the path to the R script to be benchmarked.
+- Prompts for the path to the R script to be benchmarked.
 
-4.  Stashes any uncommitted changes to ensure a clean state.
+- Stashes any uncommitted changes to ensure a clean state.
 
-5.  Iterates through the selected branches, checking each one out and
-    executing the target script within a fresh environment
-    (\`new.env()\`).
+- Iterates through the selected branches, checking each one out and
+  executing the target script within a fresh environment
+  [`new.env()`](https://rdrr.io/r/base/environment.html).
 
-6.  Restores the original branch and pops the stash to return the
-    workspace to its initial state.
+- Restores the original branch and pops the stash to return the
+  workspace to its initial state.
+
+## Warning
+
+This function modifies files on disk or the global environment. Please
+ensure you have a backup or are using version control (e.g., Git) before
+execution.
+
+## Examples
+
+``` r
+if (FALSE) { # \dontrun{
+# This is an interactive or file-system modifying function
+# that requires manual user confirmation or action.
+} # }
+```

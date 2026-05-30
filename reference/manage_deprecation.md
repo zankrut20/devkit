@@ -33,3 +33,18 @@ steps:
 4.  Optionally scans the \`tests/\` and \`vignettes/\` directories for
     occurrences of the old function and interactively replaces them with
     the new one.
+
+## Warning
+
+This function modifies files on disk or the global environment. Please
+ensure you have a backup or are using version control (e.g., Git) before
+execution.
+
+## Examples
+
+``` r
+if (FALSE) { # \dontrun{
+# This is an interactive or file-system modifying function
+# that requires manual user confirmation or action.
+} # }
+```

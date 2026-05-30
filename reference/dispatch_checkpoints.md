@@ -54,3 +54,18 @@ The function provides a safety layer for long-running batch operations:
 
 6.  Upon successful completion of all items, the temporary checkpoint
     file is deleted.
+
+## Warning
+
+This function modifies files on disk or the global environment. Please
+ensure you have a backup or are using version control (e.g., Git) before
+execution.
+
+## Examples
+
+``` r
+if (FALSE) { # \dontrun{
+# This is an interactive or file-system modifying function
+# that requires manual user confirmation or action.
+} # }
+```

@@ -32,3 +32,18 @@ calling handlers:
 4.  Attaches \`globalCallingHandlers\` to the session, which intercepts
     conditions and appends them to the log file with a timestamp and
     type label.
+
+## Warning
+
+This function modifies files on disk or the global environment. Please
+ensure you have a backup or are using version control (e.g., Git) before
+execution.
+
+## Examples
+
+``` r
+if (FALSE) { # \dontrun{
+# This is an interactive or file-system modifying function
+# that requires manual user confirmation or action.
+} # }
+```

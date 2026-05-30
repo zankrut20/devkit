@@ -29,8 +29,24 @@ The function operates as follows:
 3.  Sources the selected script, catching any errors that occur during
     execution.
 
-4.  Compares the post-execution state with the pre-execution snapshot.
+4.  Captures the "Before" state (working directory, loaded packages,
+    global objects).
 
-5.  Interactively prompts the user to either keep or revert each
-    detected change in the working directory, global options, or
-    graphical parameters.
+5.  Executes the target script.
+
+6.  Captures the "After" state and reports the delta.
+
+## Warning
+
+This function modifies files on disk or the global environment. Please
+ensure you have a backup or are using version control (e.g., Git) before
+execution.
+
+## Examples
+
+``` r
+if (FALSE) { # \dontrun{
+# This is an interactive or file-system modifying function
+# that requires manual user confirmation or action.
+} # }
+```

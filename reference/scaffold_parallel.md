@@ -43,3 +43,18 @@ processing pipeline:
 
 5.  Offers to print the snippet to the console or save it directly to
     \`parallel_scaffold.R\`.
+
+## Warning
+
+This function modifies files on disk or the global environment. Please
+ensure you have a backup or are using version control (e.g., Git) before
+execution.
+
+## Examples
+
+``` r
+if (FALSE) { # \dontrun{
+# This is an interactive or file-system modifying function
+# that requires manual user confirmation or action.
+} # }
+```

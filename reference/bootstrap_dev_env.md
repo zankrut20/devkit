@@ -32,3 +32,18 @@ The process follows these steps:
 3.  After ensuring availability, it prompts the user to select which of
     the available tools should be attached to the current session using
     \`library()\`.
+
+## Warning
+
+This function modifies files on disk or the global environment. Please
+ensure you have a backup or are using version control (e.g., Git) before
+execution.
+
+## Examples
+
+``` r
+if (FALSE) { # \dontrun{
+# This is an interactive or file-system modifying function
+# that requires manual user confirmation or action.
+} # }
+```

@@ -38,3 +38,18 @@ The function implements a "stress-test" for script reproducibility:
 
 5.  Automatically updates the file and re-runs the simulation until the
     script executes successfully or the user aborts.
+
+## Warning
+
+This function modifies files on disk or the global environment. Please
+ensure you have a backup or are using version control (e.g., Git) before
+execution.
+
+## Examples
+
+``` r
+if (FALSE) { # \dontrun{
+# This is an interactive or file-system modifying function
+# that requires manual user confirmation or action.
+} # }
+```

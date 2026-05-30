@@ -49,3 +49,12 @@ The function implements a robust network request manager:
 
 5.  **Graceful Failure**: If all retries are exhausted, the target is
     marked as \`NA\` and the process continues to the next target.
+
+## Examples
+
+``` r
+if (FALSE) { # \dontrun{
+# This is an interactive or file-system modifying function
+# that requires manual user confirmation or action.
+} # }
+```

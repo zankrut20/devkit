@@ -69,7 +69,21 @@ global calling handlers:</p><ol><li><p>Verifies that the R version is 4.0.0 or h
       intercepts conditions and appends them to the log file with
       a timestamp and type label.</p></li>
 </ol></div>
+    <div class="section level2">
+    <h2 id="warning">Warning<a class="anchor" aria-label="anchor" href="#warning"></a></h2>
 
+
+<p>This function modifies files on disk or the global environment. Please ensure you have a backup or are using version control (e.g., Git) before execution.</p>
+    </div>
+
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="co"># This is an interactive or file-system modifying function</span></span></span>
+<span class="r-in"><span><span class="co"># that requires manual user confirmation or action.</span></span></span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 
