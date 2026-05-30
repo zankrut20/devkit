@@ -36,6 +36,7 @@
 <li><a class="dropdown-item" href="../articles/devkit-guide.html">Getting Started with devkit</a></li>
   </ul>
 </li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -95,6 +96,10 @@ in your code.</li>
 <li>
 <strong><code><a href="../reference/remove_package.html">remove_package()</a></code></strong>: Safely removes a
 package while checking for orphan dependencies.</li>
+<li>
+<strong><code><a href="../reference/remove_user_installed_packages.html">remove_user_installed_packages()</a></code></strong>:
+Cleans all user-installed packages while preserving base and recommended
+packages.</li>
 </ul>
 </div>
 <div class="section level3">
@@ -149,6 +154,10 @@ recreate your current session’s package environment.</li>
 <strong><code><a href="../reference/simulate_clean_room.html">simulate_clean_room()</a></code></strong>: Runs your
 script in a completely vanilla R session (<code>--vanilla</code>) to
 ensure it doesn’t rely on hidden local state.</li>
+<li>
+<strong><code><a href="../reference/benchmark_branches.html">benchmark_branches()</a></code></strong>: Compares the
+execution time of a script across different Git branches to quantify
+performance gains.</li>
 </ul>
 </div>
 </div>
@@ -258,6 +267,16 @@ limits (HTTP 429).</li>
 <td align="left"><strong>Batch</strong></td>
 <td align="left"><code><a href="../reference/dispatch_checkpoints.html">dispatch_checkpoints()</a></code></td>
 <td align="left">Crash Resilience</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Perf</strong></td>
+<td align="left"><code><a href="../reference/benchmark_branches.html">benchmark_branches()</a></code></td>
+<td align="left">Branch Comparison</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Clean</strong></td>
+<td align="left"><code><a href="../reference/remove_user_installed_packages.html">remove_user_installed_packages()</a></code></td>
+<td align="left">Env Reset</td>
 </tr>
 </tbody>
 </table>

@@ -42,6 +42,9 @@ hunt_zombies()
   DESCRIPTION file vs actual code usage.
 - [`remove_package()`](reference/remove_package.md): Smart package
   removal with orphan dependency checking.
+- [`remove_user_installed_packages()`](reference/remove_user_installed_packages.md):
+  Cleans all user-installed packages while preserving base/recommended
+  ones.
 - [`scan_dependencies()`](reference/scan_dependencies.md): Identifies
   unused packages in your session.
 

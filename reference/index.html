@@ -20,6 +20,7 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/devkit-guide.html">Getting Started with devkit</a></li>
   </ul></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
       </ul></div>
@@ -34,9 +35,187 @@
     </div>
 
     <div class="section level2">
-      <h2 id="all-functions">All functions<a class="anchor" aria-label="anchor" href="#all-functions"></a></h2>
+      <h2 id="package-management">Package Management<a class="anchor" aria-label="anchor" href="#package-management"></a></h2>
+
+      <div class="section-desc"><p>Tools for auditing and cleaning package dependencies.</p></div>
+
+      <dl></dl></div><div class="section level2">
 
 
+
+
+      <dl><dt>
+
+          <code><a href="audit_dependencies.html">audit_dependencies()</a></code>
+
+        </dt>
+        <dd>Interactive Dependency Diplomat (Base R Edition)</dd>
+
+        <dt>
+
+          <code><a href="remove_package.html">remove_package()</a></code>
+
+        </dt>
+        <dd>Interactive Package Remover</dd>
+
+        <dt>
+
+          <code><a href="remove_user_installed_packages.html">remove_user_installed_packages()</a></code>
+
+        </dt>
+        <dd>Remove User-Installed Packages</dd>
+
+        <dt>
+
+          <code><a href="scan_dependencies.html">scan_dependencies()</a></code>
+
+        </dt>
+        <dd>Unused Dependency Scanner</dd>
+      </dl></div><div class="section level2">
+      <h2 id="memory-system-optimization">Memory &amp; System Optimization<a class="anchor" aria-label="anchor" href="#memory-system-optimization"></a></h2>
+
+      <div class="section-desc"><p>Utilities for reclaiming RAM and cleaning temporary caches.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="sweep_memory.html">sweep_memory()</a></code>
+
+        </dt>
+        <dd>Interactive Memory Sweeper</dd>
+
+        <dt>
+
+          <code><a href="hunt_zombies.html">hunt_zombies()</a></code>
+
+        </dt>
+        <dd>Zombie Data Hunter</dd>
+
+        <dt>
+
+          <code><a href="sweep_temp_cache.html">sweep_temp_cache()</a></code>
+
+        </dt>
+        <dd>Temp-Cache Janitor</dd>
+      </dl></div><div class="section level2">
+      <h2 id="development-environment">Development Environment<a class="anchor" aria-label="anchor" href="#development-environment"></a></h2>
+
+      <div class="section-desc"><p>Scaffolding and automation for R package development.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="bootstrap_dev_env.html">bootstrap_dev_env()</a></code>
+
+        </dt>
+        <dd>Initialize Development Environment</dd>
+
+        <dt>
+
+          <code><a href="manage_deprecation.html">manage_deprecation()</a></code>
+
+        </dt>
+        <dd>Interactive Lifecycle Manager</dd>
+
+        <dt>
+
+          <code><a href="setup_preflight.html">setup_preflight()</a></code>
+
+        </dt>
+        <dd>Interactive Pre-Flight Dispatcher</dd>
+
+        <dt>
+
+          <code><a href="setup_sentinel.html">setup_sentinel()</a></code>
+
+        </dt>
+        <dd>Session Sentinel</dd>
+      </dl></div><div class="section level2">
+      <h2 id="session-auditing-reproducibility">Session Auditing &amp; Reproducibility<a class="anchor" aria-label="anchor" href="#session-auditing-reproducibility"></a></h2>
+
+      <div class="section-desc"><p>Tools for capturing state and verifying script reproducibility.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="audit_script.html">audit_script()</a></code>
+
+        </dt>
+        <dd>Silent State Auditor</dd>
+
+        <dt>
+
+          <code><a href="detect_masking.html">detect_masking()</a></code>
+
+        </dt>
+        <dd>Function Masking Detective</dd>
+
+        <dt>
+
+          <code><a href="export_snapshot.html">export_snapshot()</a></code>
+
+        </dt>
+        <dd>Export Session Snapshot</dd>
+
+        <dt>
+
+          <code><a href="simulate_clean_room.html">simulate_clean_room()</a></code>
+
+        </dt>
+        <dd>Clean-Room Simulator</dd>
+
+        <dt>
+
+          <code><a href="benchmark_branches.html">benchmark_branches()</a></code>
+
+        </dt>
+        <dd>Branch-Based Performance Benchmarker</dd>
+      </dl></div><div class="section level2">
+      <h2 id="batch-processing-network">Batch Processing &amp; Network<a class="anchor" aria-label="anchor" href="#batch-processing-network"></a></h2>
+
+      <div class="section-desc"><p>Resilient execution and polite network requests.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="dispatch_checkpoints.html">dispatch_checkpoints()</a></code>
+
+        </dt>
+        <dd>Checkpoint Dispatcher</dd>
+
+        <dt>
+
+          <code><a href="loop_guardian.html">loop_guardian()</a></code>
+
+        </dt>
+        <dd>Bulk Loop Guardian</dd>
+
+        <dt>
+
+          <code><a href="network_diplomat.html">network_diplomat()</a></code>
+
+        </dt>
+        <dd>The Network Diplomat</dd>
+      </dl></div><div class="section level2">
+      <h2 id="code-generation-documentation">Code Generation &amp; Documentation<a class="anchor" aria-label="anchor" href="#code-generation-documentation"></a></h2>
+
+      <div class="section-desc"><p>Automated boilerplate and data dictionary generation.</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -59,111 +238,6 @@
 
         <dt>
 
-          <code><a href="audit_dependencies.html">audit_dependencies()</a></code>
-
-        </dt>
-        <dd>Interactive Dependency Diplomat (Base R Edition)</dd>
-
-        <dt>
-
-          <code><a href="audit_script.html">audit_script()</a></code>
-
-        </dt>
-        <dd>Silent State Auditor</dd>
-
-        <dt>
-
-          <code><a href="benchmark_branches.html">benchmark_branches()</a></code>
-
-        </dt>
-        <dd>Branch-Based Performance Benchmarker</dd>
-
-        <dt>
-
-          <code><a href="bootstrap_dev_env.html">bootstrap_dev_env()</a></code>
-
-        </dt>
-        <dd>Initialize Development Environment</dd>
-
-        <dt>
-
-          <code><a href="detect_masking.html">detect_masking()</a></code>
-
-        </dt>
-        <dd>Function Masking Detective</dd>
-
-        <dt>
-
-          <code><a href="dictate_dictionary.html">dictate_dictionary()</a></code>
-
-        </dt>
-        <dd>Interactive Data Dictionary Dictator</dd>
-
-        <dt>
-
-          <code><a href="dispatch_checkpoints.html">dispatch_checkpoints()</a></code>
-
-        </dt>
-        <dd>Checkpoint Dispatcher</dd>
-
-        <dt>
-
-          <code><a href="export_snapshot.html">export_snapshot()</a></code>
-
-        </dt>
-        <dd>Export Session Snapshot</dd>
-
-        <dt>
-
-          <code><a href="hunt_zombies.html">hunt_zombies()</a></code>
-
-        </dt>
-        <dd>Zombie Data Hunter</dd>
-
-        <dt>
-
-          <code><a href="loop_guardian.html">loop_guardian()</a></code>
-
-        </dt>
-        <dd>Bulk Loop Guardian</dd>
-
-        <dt>
-
-          <code><a href="manage_deprecation.html">manage_deprecation()</a></code>
-
-        </dt>
-        <dd>Interactive Lifecycle Manager</dd>
-
-        <dt>
-
-          <code><a href="mask_identity.html">mask_identity()</a></code>
-
-        </dt>
-        <dd>Interactive Identity Masker</dd>
-
-        <dt>
-
-          <code><a href="network_diplomat.html">network_diplomat()</a></code>
-
-        </dt>
-        <dd>The Network Diplomat</dd>
-
-        <dt>
-
-          <code><a href="remove_package.html">remove_package()</a></code>
-
-        </dt>
-        <dd>Interactive Package Remover</dd>
-
-        <dt>
-
-          <code><a href="remove_user_installed_packages.html">remove_user_installed_packages()</a></code>
-
-        </dt>
-        <dd>Remove User-Installed Packages</dd>
-
-        <dt>
-
           <code><a href="scaffold_parallel.html">scaffold_parallel()</a></code>
 
         </dt>
@@ -178,47 +252,29 @@
 
         <dt>
 
-          <code><a href="scan_dependencies.html">scan_dependencies()</a></code>
+          <code><a href="dictate_dictionary.html">dictate_dictionary()</a></code>
 
         </dt>
-        <dd>Unused Dependency Scanner</dd>
+        <dd>Interactive Data Dictionary Dictator</dd>
+      </dl></div><div class="section level2">
+      <h2 id="privacy">Privacy<a class="anchor" aria-label="anchor" href="#privacy"></a></h2>
 
-        <dt>
+      <div class="section-desc"><p>Tools for anonymizing sensitive data.</p></div>
 
-          <code><a href="setup_preflight.html">setup_preflight()</a></code>
+      <dl></dl></div><div class="section level2">
 
-        </dt>
-        <dd>Interactive Pre-Flight Dispatcher</dd>
 
-        <dt>
 
-          <code><a href="setup_sentinel.html">setup_sentinel()</a></code>
 
-        </dt>
-        <dd>Session Sentinel</dd>
+      <dl><dt>
 
-        <dt>
-
-          <code><a href="simulate_clean_room.html">simulate_clean_room()</a></code>
+          <code><a href="mask_identity.html">mask_identity()</a></code>
 
         </dt>
-        <dd>Clean-Room Simulator</dd>
-
-        <dt>
-
-          <code><a href="sweep_memory.html">sweep_memory()</a></code>
-
-        </dt>
-        <dd>Interactive Memory Sweeper</dd>
-
-        <dt>
-
-          <code><a href="sweep_temp_cache.html">sweep_temp_cache()</a></code>
-
-        </dt>
-        <dd>Temp-Cache Janitor</dd>
+        <dd>Interactive Identity Masker</dd>
       </dl></div>
-  </main></div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">

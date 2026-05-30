@@ -23,6 +23,9 @@ Maintaining a clean `DESCRIPTION` file is critical for CRAN compliance.
   actually used in your code.
 - **[`remove_package()`](../reference/remove_package.md)**: Safely
   removes a package while checking for orphan dependencies.
+- **[`remove_user_installed_packages()`](../reference/remove_user_installed_packages.md)**:
+  Cleans all user-installed packages while preserving base and
+  recommended packages.
 
 ### Scaffolding & Automation
 
@@ -60,6 +63,9 @@ Ensure your scripts don’t leave the user’s environment in a messy state.
 - **[`simulate_clean_room()`](../reference/simulate_clean_room.md)**:
   Runs your script in a completely vanilla R session (`--vanilla`) to
   ensure it doesn’t rely on hidden local state.
+- **[`benchmark_branches()`](../reference/benchmark_branches.md)**:
+  Compares the execution time of a script across different Git branches
+  to quantify performance gains.
 
 ## 🧹 System & Memory Optimization
 
@@ -113,3 +119,5 @@ Prevent R from crashing during large-scale data processing.
 | **Memory** | [`hunt_zombies()`](../reference/hunt_zombies.md) | Resource Cleanup |
 | **Privacy** | [`mask_identity()`](../reference/mask_identity.md) | PII Anonymization |
 | **Batch** | [`dispatch_checkpoints()`](../reference/dispatch_checkpoints.md) | Crash Resilience |
+| **Perf** | [`benchmark_branches()`](../reference/benchmark_branches.md) | Branch Comparison |
+| **Clean** | [`remove_user_installed_packages()`](../reference/remove_user_installed_packages.md) | Env Reset |
