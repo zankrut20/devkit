@@ -33,8 +33,7 @@ This function modifies files on disk or the global environment. Please ensure yo
 }
 
 \examples{
-\dontrun{
-# This is an interactive or file-system modifying function
-# that requires manual user confirmation or action.
+if (interactive()) {
+  scan_dependencies()
 }
 }

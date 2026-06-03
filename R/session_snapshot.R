@@ -25,9 +25,8 @@
 #'
 #' @importFrom utils packageVersion
 #' @examples
-#' \dontrun{
-#' # This is an interactive or file-system modifying function
-#' # that requires manual user confirmation or action.
+#' if (interactive()) {
+#'   export_snapshot()
 #' }
 #' @export
 
@@ -63,7 +62,7 @@ export_snapshot <- function() {
     pkg_vector <- paste(sprintf('"%s"', target_pkgs), collapse = ", ")
     script_lines <- c(script_lines, 
                       sprintf("req_packages <- c(%s)", pkg_vector),
-                      "missing <- req_packages[!(req_packages %in% installed.packages()[,'Package'])]",
+                      "missing <- req_packages[!vapply(req_packages, requireNamespace, quietly = TRUE, FUN.VALUE = logical(1))]",
                       "if(length(missing)) install.packages(missing)"
     )
   }

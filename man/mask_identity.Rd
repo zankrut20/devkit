@@ -4,19 +4,23 @@
 \alias{mask_identity}
 \title{Interactive Identity Masker}
 \usage{
-mask_identity()
+mask_identity(envir = parent.frame())
+}
+\arguments{
+\item{envir}{The environment to search for data frames and in which to save
+the anonymized dataset. Defaults to the calling environment.}
 }
 \value{
 Invisibly returns the anonymized data frame.
 }
 \description{
-Safely anonymizes Personally Identifiable Information (PII) in a dataset 
+Safely anonymizes Personally Identifiable Information ('PII') in a dataset
 by interactively prompting the user to keep, drop, or scramble each column.
 }
 \details{
 The function provides a guided workflow for data anonymization:
 \enumerate{
-  \item Scans the global environment for available data frames and prompts the user to select one.
+  \item Scans the calling environment for available data frames and prompts the user to select one.
   \item Iterates through every column in the selected data frame, displaying its name and type.
   \item For each column, the user chooses one of three actions:
       \itemize{
@@ -24,8 +28,8 @@ The function provides a guided workflow for data anonymization:
         \item \strong{Scramble}: For numeric data, it shuffles the values to preserve the distribution while breaking the link to individuals. For text/factors, it replaces values with sequential placeholders (e.g., "Masked_0001").
         \item \strong{Drop}: Removes the column entirely from the dataset.
       }
-  \item Saves the resulting anonymized data frame back to the global environment with a `_masked` suffix.
-  \item Optionally generates a `dput()` output of the first 20 rows for easy, safe sharing.
+  \item Saves the resulting anonymized data frame back to \code{envir} with a \code{_masked} suffix.
+  \item Optionally generates a \code{dput()} output of the first 20 rows for easy, safe sharing.
 }
 }
 \section{Warning}{
@@ -34,8 +38,7 @@ This function modifies files on disk or the global environment. Please ensure yo
 }
 
 \examples{
-\dontrun{
-# This is an interactive or file-system modifying function
-# that requires manual user confirmation or action.
+if (interactive()) {
+  mask_identity()
 }
 }

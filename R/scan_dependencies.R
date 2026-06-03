@@ -26,9 +26,8 @@
 #'
 #' @importFrom utils select.list
 #' @examples
-#' \dontrun{
-#' # This is an interactive or file-system modifying function
-#' # that requires manual user confirmation or action.
+#' if (interactive()) {
+#'   scan_dependencies()
 #' }
 #' @export
 

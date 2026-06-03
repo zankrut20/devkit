@@ -38,8 +38,7 @@ The function implements a robust network request manager:
 }
 }
 \examples{
-\dontrun{
-# This is an interactive or file-system modifying function
-# that requires manual user confirmation or action.
+if (interactive()) {
+  network_diplomat(targets = c('https://example.com'), target_func = function(x) x)
 }
 }

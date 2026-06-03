@@ -12,9 +12,9 @@ Invisibly returns a named list with components: \code{status} ("done" or
 and \code{context} ("package" or "standalone").
 }
 \description{
-Scans for namespace conflicts among attached packages and interactively 
-helps the user resolve them. The function adapts its recommendations 
-based on whether it detects a package development environment or a 
+Scans for namespace conflicts among attached packages and interactively
+helps the user resolve them. The function adapts its recommendations
+based on whether it detects a package development environment or a
 standalone analysis script.
 }
 \details{
@@ -22,11 +22,10 @@ The function performs the following steps:
 \enumerate{
   \item Identifies all functions that are masked by multiple attached packages.
   \item Interactively prompts the user to select the preferred package for each conflicting function.
-  \item If a `DESCRIPTION` file is present (Package Development context), it suggests 
-      updating the `Imports` field and adding `@importFrom` roxygen2 tags.
-  \item If no `DESCRIPTION` file is present (Standalone context), it generates a 
-      code snippet to explicitly assign the preferred functions in the global environment 
-      and offers to apply these assignments immediately.
+  \item If a \code{DESCRIPTION} file is present (Package Development context), it suggests
+      updating the \code{Imports} field and adding \code{@importFrom} roxygen2 tags.
+  \item If no \code{DESCRIPTION} file is present (Standalone context), it generates a
+      code snippet to explicitly assign the preferred functions and offers to apply them.
 }
 }
 \section{Warning}{
@@ -35,8 +34,7 @@ This function modifies files on disk or the global environment. Please ensure yo
 }
 
 \examples{
-\dontrun{
-# This is an interactive or file-system modifying function
-# that requires manual user confirmation or action.
+if (interactive()) {
+  detect_masking()
 }
 }

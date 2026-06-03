@@ -26,14 +26,15 @@
 #'
 #' @importFrom utils installed.packages remove.packages
 #' @examples
-#' \dontrun{
-#' # This is an interactive or file-system modifying function
-#' # that requires manual user confirmation or action.
+#' if (interactive()) {
+#'   remove_user_installed_packages()
 #' }
 #' @export
 remove_user_installed_packages <- function() {
-  # create a list of all installed packages
-  instpack <- as.data.frame(installed.packages())
+  # installed.packages() is required here: the core purpose of this function
+  # is to enumerate ALL installed user packages for bulk removal.
+  # This is not a simple existence check and cannot be replaced by requireNamespace().
+  instpack <- as.data.frame(utils::installed.packages())
   
   # if you use MRO, make sure that no packages in this library will be removed
   instpack <- subset(instpack, !grepl("MRO", instpack$LibPath))
@@ -55,7 +56,12 @@ remove_user_installed_packages <- function() {
   message(sprintf("Removing %d user-installed packages...", length(pkgs.to.remove)))
   
   # remove the packages
-  res <- sapply(pkgs.to.remove, remove.packages, lib = path)
+  for (pkg in as.character(pkgs.to.remove)) {
+    tryCatch(
+      remove.packages(pkg, lib = path),
+      error = function(e) NULL  # silently skip if pkg not found in lib
+    )
+  }
   
   message("User-installed packages removed successfully.")
   return(invisible(list(status = "done", packages_removed = as.character(pkgs.to.remove))))

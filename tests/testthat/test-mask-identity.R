@@ -6,27 +6,24 @@ test_that("mask_identity returns early when no data frames", {
     .package = "devkit"
   )
 
-  expect_message(mask_identity(), "No dataframes|cancelled")
+  expect_message(mask_identity(envir = new.env()), "No dataframes|cancelled")
 })
 
 test_that("mask_identity cancels when user selects empty", {
-  assign("devkit_test_mask_df", data.frame(x = 1:3), envir = .GlobalEnv)
-  on.exit(rm("devkit_test_mask_df", envir = .GlobalEnv), add = TRUE)
+  test_env <- new.env()
+  test_env$devkit_test_mask_df <- data.frame(x = 1:3)
 
   local_mocked_bindings(
     select.list = function(choices, ...) "",
     .package = "devkit"
   )
 
-  expect_message(mask_identity(), "cancelled")
+  expect_message(mask_identity(envir = test_env), "cancelled")
 })
 
 test_that("mask_identity keeps columns when user selects Keep", {
-  assign("devkit_test_mask_keep", data.frame(a = 1:3, b = 4:6), envir = .GlobalEnv)
-  on.exit({
-    suppressWarnings(rm("devkit_test_mask_keep", envir = .GlobalEnv))
-    suppressWarnings(rm("devkit_test_mask_keep_masked", envir = .GlobalEnv))
-  }, add = TRUE)
+  test_env <- new.env()
+  test_env$devkit_test_mask_keep <- data.frame(a = 1:3, b = 4:6)
 
   select_count <- 0L
   local_mocked_bindings(
@@ -39,19 +36,15 @@ test_that("mask_identity keeps columns when user selects Keep", {
     .package = "devkit"
   )
 
-  result <- mask_identity()
-  masked <- get("devkit_test_mask_keep_masked", envir = .GlobalEnv)
+  result <- mask_identity(envir = test_env)
+  masked <- get("devkit_test_mask_keep_masked", envir = test_env)
   expect_equal(masked$a, 1:3)
   expect_equal(masked$b, 4:6)
 })
 
 test_that("mask_identity drops columns correctly", {
-  assign("devkit_test_mask_drop", data.frame(a = 1:3, b = 4:6, c = 7:9),
-         envir = .GlobalEnv)
-  on.exit({
-    suppressWarnings(rm("devkit_test_mask_drop", envir = .GlobalEnv))
-    suppressWarnings(rm("devkit_test_mask_drop_masked", envir = .GlobalEnv))
-  }, add = TRUE)
+  test_env <- new.env()
+  test_env$devkit_test_mask_drop <- data.frame(a = 1:3, b = 4:6, c = 7:9)
 
   select_count <- 0L
   local_mocked_bindings(
@@ -66,8 +59,8 @@ test_that("mask_identity drops columns correctly", {
     .package = "devkit"
   )
 
-  mask_identity()
-  masked <- get("devkit_test_mask_drop_masked", envir = .GlobalEnv)
+  mask_identity(envir = test_env)
+  masked <- get("devkit_test_mask_drop_masked", envir = test_env)
   expect_false("b" %in% names(masked))
   expect_true("a" %in% names(masked))
   expect_true("c" %in% names(masked))
@@ -75,12 +68,8 @@ test_that("mask_identity drops columns correctly", {
 
 test_that("mask_identity scrambles numeric by shuffling", {
   set.seed(42)
-  assign("devkit_test_mask_num", data.frame(val = c(10, 20, 30, 40, 50)),
-         envir = .GlobalEnv)
-  on.exit({
-    suppressWarnings(rm("devkit_test_mask_num", envir = .GlobalEnv))
-    suppressWarnings(rm("devkit_test_mask_num_masked", envir = .GlobalEnv))
-  }, add = TRUE)
+  test_env <- new.env()
+  test_env$devkit_test_mask_num <- data.frame(val = c(10, 20, 30, 40, 50))
 
   select_count <- 0L
   local_mocked_bindings(
@@ -93,19 +82,16 @@ test_that("mask_identity scrambles numeric by shuffling", {
     .package = "devkit"
   )
 
-  mask_identity()
-  masked <- get("devkit_test_mask_num_masked", envir = .GlobalEnv)
+  mask_identity(envir = test_env)
+  masked <- get("devkit_test_mask_num_masked", envir = test_env)
   expect_equal(sort(masked$val), c(10, 20, 30, 40, 50))
 })
 
 test_that("mask_identity scrambles text with placeholders", {
-  assign("devkit_test_mask_text",
-         data.frame(name = c("Alice", "Bob", "Charlie"), stringsAsFactors = FALSE),
-         envir = .GlobalEnv)
-  on.exit({
-    suppressWarnings(rm("devkit_test_mask_text", envir = .GlobalEnv))
-    suppressWarnings(rm("devkit_test_mask_text_masked", envir = .GlobalEnv))
-  }, add = TRUE)
+  test_env <- new.env()
+  test_env$devkit_test_mask_text <- data.frame(
+    name = c("Alice", "Bob", "Charlie"), stringsAsFactors = FALSE
+  )
 
   select_count <- 0L
   local_mocked_bindings(
@@ -118,17 +104,14 @@ test_that("mask_identity scrambles text with placeholders", {
     .package = "devkit"
   )
 
-  mask_identity()
-  masked <- get("devkit_test_mask_text_masked", envir = .GlobalEnv)
+  mask_identity(envir = test_env)
+  masked <- get("devkit_test_mask_text_masked", envir = test_env)
   expect_true(all(grepl("Masked_", masked$name)))
 })
 
 test_that("mask_identity generates dput output when requested", {
-  assign("devkit_test_mask_dput", data.frame(x = 1:3), envir = .GlobalEnv)
-  on.exit({
-    suppressWarnings(rm("devkit_test_mask_dput", envir = .GlobalEnv))
-    suppressWarnings(rm("devkit_test_mask_dput_masked", envir = .GlobalEnv))
-  }, add = TRUE)
+  test_env <- new.env()
+  test_env$devkit_test_mask_dput <- data.frame(x = 1:3)
 
   select_count <- 0L
   local_mocked_bindings(
@@ -141,16 +124,13 @@ test_that("mask_identity generates dput output when requested", {
     .package = "devkit"
   )
 
-  out <- capture.output(mask_identity())
+  out <- capture.output(mask_identity(envir = test_env))
   expect_true(any(grepl("structure|data.frame", out)))
 })
 
 test_that("mask_identity handles empty action as Drop", {
-  assign("devkit_test_mask_empty", data.frame(a = 1, b = 2), envir = .GlobalEnv)
-  on.exit({
-    suppressWarnings(rm("devkit_test_mask_empty", envir = .GlobalEnv))
-    suppressWarnings(rm("devkit_test_mask_empty_masked", envir = .GlobalEnv))
-  }, add = TRUE)
+  test_env <- new.env()
+  test_env$devkit_test_mask_empty <- data.frame(a = 1, b = 2)
 
   select_count <- 0L
   local_mocked_bindings(
@@ -164,7 +144,7 @@ test_that("mask_identity handles empty action as Drop", {
     .package = "devkit"
   )
 
-  mask_identity()
-  masked <- get("devkit_test_mask_empty_masked", envir = .GlobalEnv)
+  mask_identity(envir = test_env)
+  masked <- get("devkit_test_mask_empty_masked", envir = test_env)
   expect_false("a" %in% names(masked))
 })

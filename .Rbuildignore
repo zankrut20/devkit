@@ -11,3 +11,4 @@
 ^codecov\.yml$
 ^implementation_plan\.md$
 ^cran-comments\.md$
+^CRAN-SUBMISSION$

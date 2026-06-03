@@ -14,7 +14,7 @@
 #'   \item Iterates through each column, displaying its type and prompting the 
 #'       user for a descriptive label.
 #'   \item Assembles the collected information into a CRAN-compliant roxygen2 
-#'       block using the `\describe{}` tag.
+#'       block using the `\\describe{}` tag.
 #'   \item Offers the user the choice to either print the resulting block to 
 #'       the console or append it to `R/data.R`.
 #' }
@@ -29,9 +29,8 @@
 #'
 #' @importFrom utils select.list
 #' @examples
-#' \dontrun{
-#' # This is an interactive or file-system modifying function
-#' # that requires manual user confirmation or action.
+#' if (interactive()) {
+#'   dictate_dictionary()
 #' }
 #' @export
 

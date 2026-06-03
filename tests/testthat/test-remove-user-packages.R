@@ -1,8 +1,7 @@
 # Tests for remove_user_installed_packages()
 
 test_that("remove_user_installed_packages returns early when no user packages", {
-  local_mocked_bindings(
-    installed.packages = function(...) {
+  local_mocked_bindings(installed.packages = function(...) {
       mat <- data.frame(
         Package = c("base", "stats"),
         LibPath = c("/usr/lib/R", "/usr/lib/R"),
@@ -11,7 +10,7 @@ test_that("remove_user_installed_packages returns early when no user packages", 
       )
       as.matrix(mat)
     },
-    .package = "devkit"
+    .package = "utils"
   )
 
   expect_message(
@@ -30,10 +29,8 @@ test_that("remove_user_installed_packages filters out MRO lib paths", {
         stringsAsFactors = FALSE
       )
       as.matrix(mat)
-    },
-    remove.packages = function(pkg, ...) invisible(NULL),
-    .package = "devkit"
-  )
+    }, .package = "utils")
+  local_mocked_bindings(remove.packages = function(pkg, ...) invisible(NULL), .package = "devkit")
 
   expect_message(
     remove_user_installed_packages(),
@@ -42,8 +39,7 @@ test_that("remove_user_installed_packages filters out MRO lib paths", {
 })
 
 test_that("remove_user_installed_packages filters out base and recommended", {
-  local_mocked_bindings(
-    installed.packages = function(...) {
+  local_mocked_bindings(installed.packages = function(...) {
       mat <- data.frame(
         Package = c("base", "recommended_pkg", "userpkg"),
         LibPath = rep("/home/user/R", 3),
@@ -51,10 +47,8 @@ test_that("remove_user_installed_packages filters out base and recommended", {
         stringsAsFactors = FALSE
       )
       as.matrix(mat)
-    },
-    remove.packages = function(pkg, ...) invisible(NULL),
-    .package = "devkit"
-  )
+    }, .package = "utils")
+  local_mocked_bindings(remove.packages = function(pkg, ...) invisible(NULL), .package = "devkit")
 
   expect_message(
     remove_user_installed_packages(),
@@ -64,8 +58,7 @@ test_that("remove_user_installed_packages filters out base and recommended", {
 
 test_that("remove_user_installed_packages calls remove.packages for each user pkg", {
   removed_pkgs <- character(0)
-  local_mocked_bindings(
-    installed.packages = function(...) {
+  local_mocked_bindings(installed.packages = function(...) {
       mat <- data.frame(
         Package = c("userpkg1", "userpkg2"),
         LibPath = rep("/home/user/R", 2),
@@ -73,13 +66,11 @@ test_that("remove_user_installed_packages calls remove.packages for each user pk
         stringsAsFactors = FALSE
       )
       as.matrix(mat)
-    },
-    remove.packages = function(pkg, ...) {
+    }, .package = "utils")
+  local_mocked_bindings(remove.packages = function(pkg, ...) {
       removed_pkgs <<- c(removed_pkgs, pkg)
       invisible(NULL)
-    },
-    .package = "devkit"
-  )
+    }, .package = "devkit")
 
   remove_user_installed_packages()
   expect_true("userpkg1" %in% removed_pkgs)
@@ -87,8 +78,7 @@ test_that("remove_user_installed_packages calls remove.packages for each user pk
 })
 
 test_that("remove_user_installed_packages reports success", {
-  local_mocked_bindings(
-    installed.packages = function(...) {
+  local_mocked_bindings(installed.packages = function(...) {
       mat <- data.frame(
         Package = "userpkg",
         LibPath = "/home/user/R",
@@ -96,10 +86,8 @@ test_that("remove_user_installed_packages reports success", {
         stringsAsFactors = FALSE
       )
       as.matrix(mat)
-    },
-    remove.packages = function(pkg, ...) invisible(NULL),
-    .package = "devkit"
-  )
+    }, .package = "utils")
+  local_mocked_bindings(remove.packages = function(pkg, ...) invisible(NULL), .package = "devkit")
 
   expect_message(
     remove_user_installed_packages(),

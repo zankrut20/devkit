@@ -8,10 +8,17 @@
                  "tcltk", "tools", "utils")
 
 # List data frame names in the global environment.
-# Used by: dictate_dictionary, mask_identity
+# Used by: dictate_dictionary
 .list_global_dataframes <- function() {
   objs <- ls(envir = .GlobalEnv)
   objs[vapply(objs, function(x) is.data.frame(get(x, envir = .GlobalEnv)), logical(1))]
+}
+
+# List data frame names in a given environment.
+# Used by: mask_identity
+.list_dataframes_in <- function(envir) {
+  objs <- ls(envir = envir)
+  objs[vapply(objs, function(x) is.data.frame(get(x, envir = envir)), logical(1))]
 }
 
 # Prompt the user for a numeric value with a fallback default.

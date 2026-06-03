@@ -28,9 +28,8 @@
 #' @return A list of successfully processed results, with `NA` for permanent failures.
 #'
 #' @examples
-#' \dontrun{
-#' # This is an interactive or file-system modifying function
-#' # that requires manual user confirmation or action.
+#' if (interactive()) {
+#'   network_diplomat(targets = c('https://example.com'), target_func = function(x) x)
 #' }
 #' @export
 

@@ -22,17 +22,18 @@
 #'
 #' @return A character vector of the packages that were removed, or invisibly `character()` if nothing was removed.
 #'
-#' @importFrom utils installed.packages select.list remove.packages
+#' @importFrom utils select.list remove.packages
 #' @importFrom tools package_dependencies
 #' @examples
-#' \dontrun{
-#' # This is an interactive or file-system modifying function
-#' # that requires manual user confirmation or action.
+#' if (interactive()) {
+#'   remove_package('curl')
 #' }
 #' @export
 
 remove_package <- function(pkg, recursive = FALSE) {
-  d <- package_dependencies(, installed.packages(), recursive = recursive)
+  # Build dependency map only for the target package to avoid scanning all packages
+  db <- utils::installed.packages() # required for tools::package_dependencies()
+  d <- package_dependencies(pkg, db = db, recursive = recursive)
   depends <- if (!is.null(d[[pkg]])) d[[pkg]] else character()
   required <- unique(unlist(d[!names(d) %in% c(pkg, depends)]))
   orphans <- depends[!depends %in% required]

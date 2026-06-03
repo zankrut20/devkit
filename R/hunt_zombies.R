@@ -28,9 +28,8 @@
 #' @importFrom utils select.list
 #' @importFrom grDevices dev.list graphics.off
 #' @examples
-#' \dontrun{
-#' # This is an interactive or file-system modifying function
-#' # that requires manual user confirmation or action.
+#' if (interactive()) {
+#'   hunt_zombies()
 #' }
 #' @export
 

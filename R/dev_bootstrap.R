@@ -26,11 +26,10 @@
 #' Invisibly returns a named list with components: \code{status} ("done"),
 #' \code{initially_missing}, \code{available}, and \code{loaded} (character vectors).
 #'
-#' @importFrom utils installed.packages select.list install.packages
+#' @importFrom utils select.list install.packages
 #' @examples
-#' \dontrun{
-#' # This is an interactive or file-system modifying function
-#' # that requires manual user confirmation or action.
+#' if (interactive()) {
+#'   bootstrap_dev_env()
 #' }
 #' @export
 
@@ -38,8 +37,8 @@ bootstrap_dev_env <- function() {
   # The essential toolkit for CRAN-ready package development
   core_tools <- c("devtools", "roxygen2", "usethis", "testthat", "knitr")
   
-  # Identify what is currently installed
-  installed <- rownames(installed.packages())
+  # Identify what is currently installed using fast package lookup
+  installed <- core_tools[vapply(core_tools, requireNamespace, quietly = TRUE, FUN.VALUE = logical(1))]
   missing_tools <- setdiff(core_tools, installed)
   
   message("Checking development environment...")
@@ -70,8 +69,8 @@ bootstrap_dev_env <- function() {
   }
   
   # Step 2: Dynamically load tools for the current session
-  # Re-evaluate installed packages in case new ones were just added
-  available_tools <- intersect(core_tools, rownames(installed.packages()))
+  # Re-evaluate available packages in case new ones were just installed
+  available_tools <- core_tools[vapply(core_tools, requireNamespace, quietly = TRUE, FUN.VALUE = logical(1))]
   
   to_load <- select.list(
     choices = available_tools,
