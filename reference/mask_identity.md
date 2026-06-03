@@ -1,14 +1,21 @@
 # Interactive Identity Masker
 
-Safely anonymizes Personally Identifiable Information (PII) in a dataset
-by interactively prompting the user to keep, drop, or scramble each
-column.
+Safely anonymizes Personally Identifiable Information ('PII') in a
+dataset by interactively prompting the user to keep, drop, or scramble
+each column.
 
 ## Usage
 
 ``` r
-mask_identity()
+mask_identity(envir = parent.frame())
 ```
+
+## Arguments
+
+- envir:
+
+  The environment to search for data frames and in which to save the
+  anonymized dataset. Defaults to the calling environment.
 
 ## Value
 
@@ -18,7 +25,7 @@ Invisibly returns the anonymized data frame.
 
 The function provides a guided workflow for data anonymization:
 
-1.  Scans the global environment for available data frames and prompts
+1.  Scans the calling environment for available data frames and prompts
     the user to select one.
 
 2.  Iterates through every column in the selected data frame, displaying
@@ -35,11 +42,11 @@ The function provides a guided workflow for data anonymization:
 
     - **Drop**: Removes the column entirely from the dataset.
 
-4.  Saves the resulting anonymized data frame back to the global
-    environment with a \`\_masked\` suffix.
+4.  Saves the resulting anonymized data frame back to `envir` with a
+    `_masked` suffix.
 
-5.  Optionally generates a \`dput()\` output of the first 20 rows for
-    easy, safe sharing.
+5.  Optionally generates a [`dput()`](https://rdrr.io/r/base/dput.html)
+    output of the first 20 rows for easy, safe sharing.
 
 ## Warning
 
@@ -50,8 +57,7 @@ execution.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
-# This is an interactive or file-system modifying function
-# that requires manual user confirmation or action.
-} # }
+if (interactive()) {
+  mask_identity()
+}
 ```

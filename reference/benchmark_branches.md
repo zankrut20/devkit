@@ -46,8 +46,7 @@ execution.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
-# This is an interactive or file-system modifying function
-# that requires manual user confirmation or action.
-} # }
+if (interactive()) {
+  benchmark_branches()
+}
 ```

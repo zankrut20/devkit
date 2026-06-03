@@ -1,5 +1,7 @@
 # Changelog
 
+## devkit 1.0.0
+
 ## devkit 0.0.1 (2026-05-30)
 
 Initial release of the `devkit` toolkit.

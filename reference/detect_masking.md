@@ -27,14 +27,13 @@ The function performs the following steps:
 2.  Interactively prompts the user to select the preferred package for
     each conflicting function.
 
-3.  If a \`DESCRIPTION\` file is present (Package Development context),
-    it suggests updating the \`Imports\` field and adding
-    \`@importFrom\` roxygen2 tags.
+3.  If a `DESCRIPTION` file is present (Package Development context), it
+    suggests updating the `Imports` field and adding `@importFrom`
+    roxygen2 tags.
 
-4.  If no \`DESCRIPTION\` file is present (Standalone context), it
+4.  If no `DESCRIPTION` file is present (Standalone context), it
     generates a code snippet to explicitly assign the preferred
-    functions in the global environment and offers to apply these
-    assignments immediately.
+    functions and offers to apply them.
 
 ## Warning
 
@@ -45,8 +44,7 @@ execution.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
-# This is an interactive or file-system modifying function
-# that requires manual user confirmation or action.
-} # }
+if (interactive()) {
+  detect_masking()
+}
 ```
