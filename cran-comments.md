@@ -14,11 +14,10 @@ This is a resubmission. In this version I have addressed all reviewer feedback:
 
 * Added executable `if (interactive())` examples to all 25 exported functions.
 
-* No `References` field was added to `DESCRIPTION` as this package provides
-  practical workflow utilities and does not implement novel methods or algorithms.
+* Fixed a typo in the `DESCRIPTION` field that was causing a spellchecker warning ("ForProvides").
 
 ## Test environments
-* local Windows 11 install, R 4.3.0
+* local Windows 11 install, R 4.6.0
 * GitHub Actions, windows-latest, release
 * GitHub Actions, macos-latest, release
 * GitHub Actions, ubuntu-latest, release
