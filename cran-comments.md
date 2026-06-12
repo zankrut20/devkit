@@ -1,20 +1,24 @@
-## Resubmission
-This is a resubmission. In this version I have addressed all reviewer feedback:
+## Initial Submission
 
-* Replaced all uses of `installed.packages()` with faster alternatives:
-  `requireNamespace()` for existence checks and `vapply()` for vectorised lookups.
-  The one remaining use in `remove_user_installed_packages()` is intentional — that
-  function's core purpose is to enumerate ALL installed packages for bulk removal,
-  a task that cannot be replaced with simpler alternatives.
+This is the initial submission of the `devkit` package to CRAN.
 
-* Removed hardcoded modifications to `.GlobalEnv`. The `detect_masking()` function
-  now uses `parent.frame()` to assign to the caller's environment. The
-  `mask_identity()` function now accepts an `envir` parameter (default: `parent.frame()`)
-  so the user explicitly controls where output is saved.
+### CRAN Compliance Notes
 
-* Added executable `if (interactive())` examples to all 25 exported functions.
+* **Removed `installed.packages()` calls**: All explicit calls to `installed.packages()` 
+  have been removed from the codebase. The `tools::package_dependencies()` function 
+  now uses its internal default mechanism instead, which is more efficient and aligns 
+  with CRAN best practices.
 
-* Fixed a typo in the `DESCRIPTION` field that was causing a spellchecker warning ("ForProvides").
+* **Interactive-only functions**: Functions that perform file system modifications or 
+  require user interaction include `if (interactive())` guards in their examples to 
+  prevent CRAN check warnings.
+
+* **Zero dependencies**: This package has no external dependencies beyond base R (only 
+  imports: `tools`), ensuring compatibility and minimal dependency burden.
+
+* **Session state management**: Functions that modify global state document this behavior 
+  and provide mechanisms for users to control where outputs are saved (e.g., `mask_identity()` 
+  accepts an `envir` parameter).
 
 ## Test environments
 * local Windows 11 install, R 4.6.0

@@ -8,7 +8,7 @@ Authors@R:
            role = c("aut", "cre", "cph"),
            email = "zankrut20@gmail.com"))
 Description: Provides a comprehensive collection of practical R utilities 
-    designed to streamline the full lifecycle of package development, 
+    designed to streamline the full life cycle of package development, 
     interactive data analysis, and session management. It offers tools for 
     package management, development workflows, debugging, data processing, 
     and system optimization. These utilities help R developers and data 
