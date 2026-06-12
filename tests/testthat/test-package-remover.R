@@ -5,12 +5,6 @@ test_that("remove_package offers target pkg even when no orphan deps", {
     package_dependencies = function(...) {
       list(mypkg = character(0))
     },
-    installed.packages = function(...) {
-      mat <- matrix(c("mypkg", "base"), ncol = 1)
-      rownames(mat) <- mat[, 1]
-      colnames(mat) <- "Package"
-      mat
-    },
     select.list = function(choices, ...) choices,
     remove.packages = function(...) invisible(NULL),
     .package = "devkit"
@@ -27,12 +21,6 @@ test_that("remove_package prompts user when orphan deps exist", {
         mypkg = c("dep1", "dep2"),
         otherpkg = character(0)
       )
-    },
-    installed.packages = function(...) {
-      mat <- matrix(c("mypkg", "dep1", "dep2", "otherpkg"), ncol = 1)
-      rownames(mat) <- mat[, 1]
-      colnames(mat) <- "Package"
-      mat
     },
     select.list = function(choices, ...) choices,
     remove.packages = function(...) invisible(NULL),
@@ -51,12 +39,6 @@ test_that("remove_package filters out deps required by other packages", {
         otherpkg = c("shared_dep")
       )
     },
-    installed.packages = function(...) {
-      mat <- matrix(c("mypkg", "dep1", "shared_dep", "otherpkg"), ncol = 1)
-      rownames(mat) <- mat[, 1]
-      colnames(mat) <- "Package"
-      mat
-    },
     select.list = function(choices, ...) choices,
     remove.packages = function(...) invisible(NULL),
     .package = "devkit"
@@ -72,12 +54,6 @@ test_that("remove_package handles package with NULL dependencies", {
     package_dependencies = function(...) {
       list(mypkg = NULL)
     },
-    installed.packages = function(...) {
-      mat <- matrix("mypkg", ncol = 1)
-      rownames(mat) <- "mypkg"
-      colnames(mat) <- "Package"
-      mat
-    },
     select.list = function(choices, ...) choices,
     remove.packages = function(...) invisible(NULL),
     .package = "devkit"
@@ -90,15 +66,9 @@ test_that("remove_package handles package with NULL dependencies", {
 test_that("remove_package with recursive = TRUE passed to package_dependencies", {
   dep_args <- NULL
   local_mocked_bindings(
-    package_dependencies = function(packages, db, recursive, ...) {
+    package_dependencies = function(recursive, ...) {
       dep_args <<- list(recursive = recursive)
       list(mypkg = character(0))
-    },
-    installed.packages = function(...) {
-      mat <- matrix("mypkg", ncol = 1)
-      rownames(mat) <- "mypkg"
-      colnames(mat) <- "Package"
-      mat
     },
     select.list = function(choices, ...) character(0),
     .package = "devkit"

@@ -31,9 +31,8 @@
 #' @export
 
 remove_package <- function(pkg, recursive = FALSE) {
-  # Build dependency map only for the target package to avoid scanning all packages
-  db <- utils::installed.packages() # required for tools::package_dependencies()
-  d <- package_dependencies(pkg, db = db, recursive = recursive)
+  # Get dependency information for all packages (tools::package_dependencies uses internal default)
+  d <- package_dependencies(recursive = recursive)
   depends <- if (!is.null(d[[pkg]])) d[[pkg]] else character()
   required <- unique(unlist(d[!names(d) %in% c(pkg, depends)]))
   orphans <- depends[!depends %in% required]
