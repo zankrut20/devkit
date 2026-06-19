@@ -2,6 +2,8 @@
 
 ## devkit 1.0.0
 
+CRAN release: 2026-06-19
+
 ## devkit 0.0.1 (2026-05-30)
 
 Initial release of the `devkit` toolkit.

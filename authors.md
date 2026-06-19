@@ -7,7 +7,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/zankrut20/devkit/blob/master/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/zankrut20/devkit/blob/v1.0.0/DESCRIPTION)
 
 Goyani Z (2026). *devkit: Practical Utilities for Package Development
 and Session Auditing*. R package version 1.0.0,
