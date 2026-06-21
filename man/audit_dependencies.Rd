@@ -22,7 +22,7 @@ The function implements a zero-dependency approach to dependency auditing:
   \item Parses the `DESCRIPTION` file to identify currently declared `Imports` and `Suggests`.
   \item Recursively scans the `R/`, `tests/`, and `vignettes/` directories for `::` calls, 
       `library()` calls, and `require()` calls.
-  \item Filters out base R packages.
+  \item Filters out implicit base R packages.
   \item Interactively prompts the user to add missing dependencies or remove unused ones 
       from the `DESCRIPTION` file.
 }

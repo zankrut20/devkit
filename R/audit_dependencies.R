@@ -11,7 +11,7 @@
 #'   \item Parses the `DESCRIPTION` file to identify currently declared `Imports` and `Suggests`.
 #'   \item Recursively scans the `R/`, `tests/`, and `vignettes/` directories for `::` calls, 
 #'       `library()` calls, and `require()` calls.
-#'   \item Filters out base R packages.
+#'   \item Filters out implicit base R packages.
 #'   \item Interactively prompts the user to add missing dependencies or remove unused ones 
 #'       from the `DESCRIPTION` file.
 #' }
@@ -120,15 +120,44 @@ audit_dependencies <- function() {
   used_in_tests <- scan_directory("tests")
   used_in_vigs <- scan_directory("vignettes")
   
+  used_in_namespace <- character()
+  if (file.exists("NAMESPACE")) {
+    ns_env <- new.env(parent = baseenv())
+    ns_env$import <- function(...) {
+      pkgs <- as.character(match.call()[-1])
+      used_in_namespace <<- c(used_in_namespace, pkgs)
+    }
+    ns_env$importFrom <- function(pkg, ...) {
+      used_in_namespace <<- c(used_in_namespace, as.character(substitute(pkg)))
+    }
+    ns_env$importClassesFrom <- function(pkg, ...) {
+      used_in_namespace <<- c(used_in_namespace, as.character(substitute(pkg)))
+    }
+    ns_env$importMethodsFrom <- function(pkg, ...) {
+      used_in_namespace <<- c(used_in_namespace, as.character(substitute(pkg)))
+    }
+    for (f in c("export", "exportPattern", "exportClasses", "exportMethods", "S3method", "useDynLib")) {
+      ns_env[[f]] <- function(...) NULL
+    }
+    tryCatch({
+      sys.source("NAMESPACE", envir = ns_env)
+    }, error = function(e) NULL)
+  }
+  
+  used_linkingto <- get_clean_deps("LinkingTo")
+  
+  used_in_R <- unique(c(used_in_R, used_in_namespace, used_linkingto))
   all_used <- unique(c(used_in_R, used_in_tests, used_in_vigs))
-  base_pkgs <- .base_pkgs
-  all_used <- setdiff(all_used, base_pkgs)
-  used_in_R <- setdiff(used_in_R, base_pkgs)
   
   # 4. Identify Discrepancies
+  all_declared <- unique(c(current_imports, current_suggests))
   ghost_deps <- setdiff(all_used, all_declared)
   bloat_deps <- setdiff(all_declared, all_used)
   misclassified <- intersect(setdiff(current_imports, used_in_R), c(used_in_tests, used_in_vigs))
+  
+  # Only filter out base packages from ghost dependencies if they aren't explicitly imported
+  base_pkgs <- .base_pkgs
+  ghost_deps <- setdiff(ghost_deps, setdiff(base_pkgs, used_in_namespace))
   
   if (length(ghost_deps) == 0 && length(bloat_deps) == 0 && length(misclassified) == 0) {
     message("\nPerfect! Your DESCRIPTION file perfectly matches your source code.")
